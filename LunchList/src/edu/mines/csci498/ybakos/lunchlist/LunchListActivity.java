@@ -19,7 +19,7 @@ public class LunchListActivity extends Activity {
         
         TextView field = (TextView)findViewById(R.id.name);  
         Typeface font = Typeface.createFromAsset(getAssets(), "Alphabits-Regular.ttf");  
-        field.setTypeface(font);  
+        field.setTypeface(font);
         
         Button save = (Button)findViewById(R.id.save);
         save.setOnClickListener(onSave);
