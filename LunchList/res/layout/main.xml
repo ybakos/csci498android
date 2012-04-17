@@ -17,7 +17,7 @@
 
         <EditText
             android:id="@+id/name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1" 
 			android:textColor="#66AA66" >
@@ -41,7 +41,7 @@
 
         <EditText
             android:id="@+id/address"
-            android:layout_width="wrap_content"
+            android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:textColor="#6666AA"
     		android:typeface="monospace"
