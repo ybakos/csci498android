@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.graphics.Typeface;
 
 public class LunchListActivity extends Activity {
     
@@ -14,6 +16,10 @@ public class LunchListActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        
+        TextView field = (TextView)findViewById(R.id.name);  
+        Typeface font = Typeface.createFromAsset(getAssets(), "Alphabits-Regular.ttf");  
+        field.setTypeface(font);  
         
         Button save = (Button)findViewById(R.id.save);
         save.setOnClickListener(onSave);
