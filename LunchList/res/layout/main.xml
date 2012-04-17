@@ -1,20 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
-
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:stretchColumns="1" >
+    <TableRow>
         <TextView
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/nameFieldLabel" />
-
         <EditText
             android:id="@+id/name"
             android:inputType="text"
@@ -25,14 +19,8 @@
 			android:textColor="#66AA66" >
             <requestFocus />
         </EditText>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
+    </TableRow>
+    <TableRow>
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
@@ -40,7 +28,6 @@
             android:textColor="#AA6666"
     		android:typeface="monospace"
             android:text="@string/addressFieldLabel" />
-
         <EditText
             android:id="@+id/address"
             android:inputType="text"
@@ -49,21 +36,10 @@
             android:textColor="#6666AA"
     		android:typeface="monospace"
             android:layout_weight="1" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout3"
+    </TableRow>
+    <Button
+        android:id="@+id/save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
-
-        <Button
-            android:id="@+id/save"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/saveButtonLabel" />
-
-    </LinearLayout>
-
-</LinearLayout>
+        android:text="@string/saveButtonLabel" />
+</TableLayout>
