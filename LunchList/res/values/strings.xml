@@ -3,5 +3,8 @@
 
     <string name="hello">Hello World, LunchListActivity!</string>
     <string name="app_name">Yong\'s LunchList</string>
+    <string name="saveButtonLabel">Save</string>
+    <string name="nameFieldLabel">Name</string>
+    <string name="addressFieldLabel">Address</string>
 
 </resources>

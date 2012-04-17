@@ -13,7 +13,7 @@
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Name" />
+            android:text="@string/nameFieldLabel" />
 
         <EditText
             android:id="@+id/name"
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:textColor="#AA6666"
     		android:typeface="monospace"
-            android:text="Address" />
+            android:text="@string/addressFieldLabel" />
 
         <EditText
             android:id="@+id/address"
@@ -59,7 +59,7 @@
             android:id="@+id/save"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Save" />
+            android:text="@string/saveButtonLabel" />
 
     </LinearLayout>
 
