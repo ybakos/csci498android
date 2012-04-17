@@ -19,8 +19,8 @@
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1" >
-
+            android:layout_weight="1" 
+			android:textColor="#66AA66" >
             <requestFocus />
         </EditText>
 
@@ -35,12 +35,16 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#AA6666"
+    		android:typeface="monospace"
             android:text="Address" />
 
         <EditText
             android:id="@+id/address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#6666AA"
+    		android:typeface="monospace"
             android:layout_weight="1" />
 
     </LinearLayout>
