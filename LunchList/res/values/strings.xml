@@ -6,5 +6,6 @@
     <string name="saveButtonLabel">Save</string>
     <string name="nameFieldLabel">Name</string>
     <string name="addressFieldLabel">Address</string>
+    <string name="nameFieldHint">Restaurant name</string>
 
 </resources>
