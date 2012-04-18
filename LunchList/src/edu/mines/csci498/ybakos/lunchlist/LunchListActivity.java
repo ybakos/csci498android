@@ -22,35 +22,22 @@ public class LunchListActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        
-        TextView field = (TextView)findViewById(R.id.name);  
-        Typeface font = Typeface.createFromAsset(getAssets(), "Alphabits-Regular.ttf");  
-        field.setTypeface(font);
-        
-        Button save = (Button)findViewById(R.id.save);
-        save.setOnClickListener(onSave);
-        
-        ListView restaurantList = (ListView)findViewById(R.id.restaurants);
-        restaurantsAdapter = new ArrayAdapter<Restaurant>(this, android.R.layout.simple_list_item_1, restaurants);
-        restaurantList.setAdapter(restaurantsAdapter);
+        setTypeFaces();
+        configureButton();
+        configureRestaurantsAdapter();
     }
     
     private View.OnClickListener onSave = new View.OnClickListener() {
     		public void onClick(View v) {
     			Restaurant r = new Restaurant();
-    			
-    			EditText name = (EditText)findViewById(R.id.name);
-    			EditText address = (EditText)findViewById(R.id.address);
-    			RadioGroup types = (RadioGroup)findViewById(R.id.restaurantTypes);
-    			
-    			r.setName(name.getText().toString());
-    			r.setAddress(address.getText().toString());
-    			r.setType(restaurantTypeFromRadioGroup(types));
-    			
+    			r.setName(((EditText)findViewById(R.id.name)).getText().toString());
+    			r.setAddress(((EditText)findViewById(R.id.address)).getText().toString());
+    			r.setType(restaurantTypeFromRadioGroup((RadioGroup)findViewById(R.id.restaurantTypes)));
     			restaurantsAdapter.add(r);
     		}
     	};
-    	
+    
+    // Returns the restaurant type given a RadioGroup representing those types.
     private String restaurantTypeFromRadioGroup(RadioGroup group) {
     	if (group == null) return "";
     	switch (group.getCheckedRadioButtonId()) {
@@ -63,6 +50,26 @@ public class LunchListActivity extends Activity {
     		default:
     			return "";		
     	}
+    }
+
+    // For fun.
+    private void setTypeFaces() {
+        TextView field = (TextView)findViewById(R.id.name);  
+        Typeface font = Typeface.createFromAsset(getAssets(), "Alphabits-Regular.ttf");  
+        field.setTypeface(font);
+    }
+    
+    // The main save button in this Activity.
+    private void configureButton() {
+        Button save = (Button)findViewById(R.id.save);
+        save.setOnClickListener(onSave);
+    }
+    
+    // Creates and configures the ArrayAdapter for managing the ArrayList of Restaurant objects.
+    private void configureRestaurantsAdapter() {
+        ListView restaurantList = (ListView)findViewById(R.id.restaurants);
+        restaurantsAdapter = new ArrayAdapter<Restaurant>(this, android.R.layout.simple_list_item_1, restaurants);
+        restaurantList.setAdapter(restaurantsAdapter);
     }
     
 }
