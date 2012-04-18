@@ -57,9 +57,11 @@ public class LunchListActivity extends Activity {
     
     private void addLotsOfRadioButtons() {
     	RadioGroup restaurantTypes = (RadioGroup)findViewById(R.id.restaurantTypes);
-        RadioButton rb1 = new RadioButton(this);
-        rb1.setText("Test");
-        restaurantTypes.addView(rb1);
+        for (int i = 0; i < 10; ++i) {
+        	RadioButton rb = new RadioButton(this);
+        	rb.setText(Integer.toString(i));
+        	restaurantTypes.addView(rb);
+        }
     }
     
 }
