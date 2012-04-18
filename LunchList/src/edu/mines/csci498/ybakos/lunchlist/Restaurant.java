@@ -29,5 +29,9 @@ public class Restaurant {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	
+	public String toString() {
+		return getName();
+	}
 
 }
