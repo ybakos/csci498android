@@ -1,81 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:stretchColumns="1" >
-    <TableRow>
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/nameFieldLabel" />
-        <EditText
-            android:id="@+id/name"
-            android:inputType="text"
-            android:hint="@string/nameFieldHint"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" 
-			android:textColor="#66AA66" >
-            <requestFocus />
-        </EditText>
-    </TableRow>
-    <TableRow>
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#AA6666"
-    		android:typeface="monospace"
-            android:text="@string/addressFieldLabel" />
-        <EditText
-            android:id="@+id/address"
-            android:inputType="text"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:textColor="#6666AA"
-    		android:typeface="monospace"
-            android:layout_weight="1" />
-    </TableRow>
-    <TableRow>
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/typeFieldLabel" />
-
-        <RadioGroup
-            android:id="@+id/restaurantTypes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-
-            <RadioButton
-                android:id="@+id/take_out"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="@string/restaurantType01" />
-
-            <RadioButton
-                android:id="@+id/sit_down"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/restaurantType02" />
-
-            <RadioButton
-                android:id="@+id/delivery"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/restaurantType03" />
-        </RadioGroup>
-
-    </TableRow>
-    <Button
-        android:id="@+id/save"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/saveButtonLabel" />
-
-
-</TableLayout>
+<ScrollView
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent" >
+	<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:stretchColumns="1" >
+	    <TableRow>
+	        <TextView
+	            android:id="@+id/textView1"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="@string/nameFieldLabel" />
+	        <EditText
+	            android:id="@+id/name"
+	            android:inputType="text"
+	            android:hint="@string/nameFieldHint"
+	            android:layout_width="0dip"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1" 
+				android:textColor="#66AA66" >
+	            <requestFocus />
+	        </EditText>
+	    </TableRow>
+	    <TableRow>
+	        <TextView
+	            android:id="@+id/textView2"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:textColor="#AA6666"
+	    		android:typeface="monospace"
+	            android:text="@string/addressFieldLabel" />
+	        <EditText
+	            android:id="@+id/address"
+	            android:inputType="text"
+	            android:layout_width="0dip"
+	            android:layout_height="wrap_content"
+	            android:textColor="#6666AA"
+	    		android:typeface="monospace"
+	            android:layout_weight="1" />
+	    </TableRow>
+	    <TableRow>
+	
+	        <TextView
+	            android:id="@+id/textView3"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="@string/typeFieldLabel" />
+	
+	        <RadioGroup
+	            android:id="@+id/restaurantTypes"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content" >
+	
+	            <RadioButton
+	                android:id="@+id/take_out"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:checked="true"
+	                android:text="@string/restaurantType01" />
+	
+	            <RadioButton
+	                android:id="@+id/sit_down"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:text="@string/restaurantType02" />
+	
+	            <RadioButton
+	                android:id="@+id/delivery"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:text="@string/restaurantType03" />
+	        </RadioGroup>
+	
+	    </TableRow>
+	    <Button
+	        android:id="@+id/save"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:text="@string/saveButtonLabel" />
+	
+	
+	</TableLayout>
+</ScrollView>
