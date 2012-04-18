@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<RelativeLayout
      xmlns:android="http://schemas.android.com/apk/res/android"
      android:layout_width="match_parent"
      android:layout_height="match_parent" >
-	<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	<TableLayout android:id="@+id/details"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
-	    android:stretchColumns="1" >
+	    android:layout_alignParentBottom="true"
+	    android:stretchColumns="1"
+	    android:shrinkColumns="1" >
 	    <TableRow>
 	        <TextView
 	            android:id="@+id/textView1"
@@ -42,45 +44,42 @@
 	            android:layout_weight="1" />
 	    </TableRow>
 	    <TableRow>
-	
 	        <TextView
 	            android:id="@+id/textView3"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:text="@string/typeFieldLabel" />
-	
 	        <RadioGroup
 	            android:id="@+id/restaurantTypes"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content" >
-	
 	            <RadioButton
 	                android:id="@+id/take_out"
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
 	                android:checked="true"
 	                android:text="@string/restaurantType01" />
-	
 	            <RadioButton
 	                android:id="@+id/sit_down"
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
 	                android:text="@string/restaurantType02" />
-	
 	            <RadioButton
 	                android:id="@+id/delivery"
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
 	                android:text="@string/restaurantType03" />
 	        </RadioGroup>
-	
 	    </TableRow>
 	    <Button
 	        android:id="@+id/save"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:text="@string/saveButtonLabel" />
-	
-	
 	</TableLayout>
-</ScrollView>
+	<ListView android:id="@+id/restaurants"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentTop="true"
+	    android:layout_above="@id/details" />
+</RelativeLayout>
