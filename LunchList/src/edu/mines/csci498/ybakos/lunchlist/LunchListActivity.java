@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.RadioGroup;
+import android.widget.RadioButton;
 import android.graphics.Typeface;
 
 public class LunchListActivity extends Activity {
@@ -21,6 +22,8 @@ public class LunchListActivity extends Activity {
         TextView field = (TextView)findViewById(R.id.name);  
         Typeface font = Typeface.createFromAsset(getAssets(), "Alphabits-Regular.ttf");  
         field.setTypeface(font);
+        
+        addLotsOfRadioButtons();
         
         Button save = (Button)findViewById(R.id.save);
         save.setOnClickListener(onSave);
@@ -50,6 +53,13 @@ public class LunchListActivity extends Activity {
     		default:
     			return "";		
     	}
+    }
+    
+    private void addLotsOfRadioButtons() {
+    	RadioGroup restaurantTypes = (RadioGroup)findViewById(R.id.restaurantTypes);
+        RadioButton rb1 = new RadioButton(this);
+        rb1.setText("Test");
+        restaurantTypes.addView(rb1);
     }
     
 }
