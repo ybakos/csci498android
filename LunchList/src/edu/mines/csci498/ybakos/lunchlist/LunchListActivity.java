@@ -15,16 +15,17 @@ import java.util.ArrayList;
 
 public class LunchListActivity extends Activity {
     
-	List<Restaurant> restaurants = new ArrayList<Restaurant>();
+	List<Restaurant> restaurants;
 	ArrayAdapter<Restaurant> restaurantsAdapter;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        
         setTypeFaces();
         configureButton();
-        configureRestaurantsAdapter();
+        configureRestaurantsList();
     }
     
     private View.OnClickListener onSave = new View.OnClickListener() {
@@ -66,7 +67,8 @@ public class LunchListActivity extends Activity {
     }
     
     // Creates and configures the ArrayAdapter for managing the ArrayList of Restaurant objects.
-    private void configureRestaurantsAdapter() {
+    private void configureRestaurantsList() {
+    	restaurants = new ArrayList<Restaurant>();
         ListView restaurantList = (ListView)findViewById(R.id.restaurants);
         restaurantsAdapter = new ArrayAdapter<Restaurant>(this, android.R.layout.simple_list_item_1, restaurants);
         restaurantList.setAdapter(restaurantsAdapter);
