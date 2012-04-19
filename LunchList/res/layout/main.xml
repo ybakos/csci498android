@@ -22,7 +22,7 @@
 	            android:layout_width="0dip"
 	            android:layout_height="wrap_content"
 	            android:layout_weight="1" 
-				android:textColor="#66AA66" >
+							android:textColor="#66AA66" >
 	            <requestFocus />
 	        </EditText>
 	    </TableRow>
@@ -32,16 +32,13 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:textColor="#AA6666"
-	    		android:typeface="monospace"
+	    				android:typeface="monospace"
 	            android:text="@string/addressFieldLabel" />
-	        <EditText
-	            android:id="@+id/address"
-	            android:inputType="text"
-	            android:layout_width="0dip"
-	            android:layout_height="wrap_content"
-	            android:textColor="#6666AA"
-	    		android:typeface="monospace"
-	            android:layout_weight="1" />
+	        <AutoCompleteTextView android:id="@+id/address"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="5dp"
+		        android:singleLine="true" />
 	    </TableRow>
 	    <TableRow>
 	        <TextView

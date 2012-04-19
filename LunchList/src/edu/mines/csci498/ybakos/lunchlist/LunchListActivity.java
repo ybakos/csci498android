@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.graphics.Typeface;
 import java.util.List;
 import java.util.ArrayList;
@@ -17,6 +18,8 @@ public class LunchListActivity extends Activity {
     
 	List<Restaurant> restaurants;
 	ArrayAdapter<Restaurant> restaurantsAdapter;
+	List<String> addresses;
+	ArrayAdapter<String> addressesAdapter;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -26,15 +29,18 @@ public class LunchListActivity extends Activity {
         setTypeFaces();
         configureButton();
         configureRestaurantsList();
+        configureAddressAutoComplete();
     }
     
     private View.OnClickListener onSave = new View.OnClickListener() {
     		public void onClick(View v) {
     			Restaurant r = new Restaurant();
+    			String address = ((EditText)findViewById(R.id.address)).getText().toString(); // used twice
     			r.setName(((EditText)findViewById(R.id.name)).getText().toString());
-    			r.setAddress(((EditText)findViewById(R.id.address)).getText().toString());
+    			r.setAddress(address);
     			r.setType(restaurantTypeFromRadioGroup((RadioGroup)findViewById(R.id.restaurantTypes)));
     			restaurantsAdapter.add(r);
+    			addressesAdapter.add(address);
     		}
     	};
     
@@ -74,4 +80,12 @@ public class LunchListActivity extends Activity {
         restaurantList.setAdapter(restaurantsAdapter);
     }
     
+    // Create and configure the ArrayAdapter for managing the ArrayList of address strings.
+    private void configureAddressAutoComplete() {
+    	addresses = new ArrayList<String>();
+    	AutoCompleteTextView address = (AutoCompleteTextView) findViewById(R.id.address);
+        addressesAdapter = new ArrayAdapter<String>(this, R.layout.address_list_item_for_autocomplete, addresses);
+        address.setAdapter(addressesAdapter);
+    }
+        
 }
