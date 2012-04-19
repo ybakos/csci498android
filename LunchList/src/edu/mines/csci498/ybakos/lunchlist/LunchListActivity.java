@@ -17,9 +17,15 @@ import java.util.ArrayList;
 public class LunchListActivity extends Activity {
     
 	List<Restaurant> restaurants;
-	ArrayAdapter<Restaurant> restaurantsAdapter;
+	RestaurantsAdapter restaurantsAdapter;
 	List<String> addresses;
 	ArrayAdapter<String> addressesAdapter;
+	
+	class RestaurantsAdapter extends ArrayAdapter<Restaurant> {
+		RestaurantsAdapter() {
+			super(LunchListActivity.this, android.R.layout.simple_list_item_1, restaurants);
+		}
+	}
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,7 +82,7 @@ public class LunchListActivity extends Activity {
     private void configureRestaurantsList() {
     	restaurants = new ArrayList<Restaurant>();
         ListView restaurantList = (ListView)findViewById(R.id.restaurants);
-        restaurantsAdapter = new ArrayAdapter<Restaurant>(this, android.R.layout.simple_list_item_1, restaurants);
+        restaurantsAdapter = new RestaurantsAdapter();
         restaurantList.setAdapter(restaurantsAdapter);
     }
     
