@@ -38,12 +38,28 @@ public class LunchListActivity extends Activity {
 				LayoutInflater inflater = getLayoutInflater();
 				row = inflater.inflate(R.layout.row, null);
 			}
-			Restaurant r = restaurants.get(position);
-			((TextView)row.findViewById(R.id.name)).setText(r.getName());
-			((TextView)row.findViewById(R.id.address)).setText(r.getAddress());
+			RestaurantHolder viewHolder = new RestaurantHolder(row);
+			viewHolder.populateFrom(restaurants.get(position));
 			
-			ImageView icon = (ImageView)row.findViewById(R.id.icon);
-			
+			return row;
+		}
+		
+	}
+	
+	static class RestaurantHolder {
+		private TextView name;
+		private TextView address;
+		private ImageView icon;
+		
+		RestaurantHolder(View row) {
+			name = (TextView)row.findViewById(R.id.name);
+			address = (TextView)row.findViewById(R.id.address);
+			icon = (ImageView)row.findViewById(R.id.icon);
+		}
+		
+		void populateFrom(Restaurant r) {
+			name.setText(r.getName());
+			address.setText(r.getAddress());
 			if (r.getType().equals("sit_down")) {
 				icon.setImageResource(R.drawable.icon_sit_down);
 			} else if (r.getType().equals("take_out")) {
@@ -51,10 +67,7 @@ public class LunchListActivity extends Activity {
 			} else {
 				icon.setImageResource(R.drawable.icon_delivery);
 			}
-			
-			return row;
 		}
-		
 	}
 	
     @Override
