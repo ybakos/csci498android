@@ -34,11 +34,17 @@ public class LunchListActivity extends Activity {
 		// Sets the icon, name and address of the Restaurant for the view.
 		public View getView(int position, View convertView, ViewGroup parent) {
 			View row = convertView;
+			RestaurantHolder viewHolder;
+			
 			if (row == null) {
 				LayoutInflater inflater = getLayoutInflater();
 				row = inflater.inflate(R.layout.row, null);
+				viewHolder = new RestaurantHolder(row);
+				row.setTag(viewHolder);
+			} else {
+				viewHolder = (RestaurantHolder)row.getTag();
 			}
-			RestaurantHolder viewHolder = new RestaurantHolder(row);
+			
 			viewHolder.populateFrom(restaurants.get(position));
 			
 			return row;
