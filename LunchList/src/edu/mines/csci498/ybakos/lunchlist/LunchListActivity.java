@@ -16,6 +16,7 @@ import android.widget.AutoCompleteTextView;
 import android.graphics.Typeface;
 import java.util.List;
 import java.util.ArrayList;
+import android.util.Log;
 
 public class LunchListActivity extends Activity {
     
@@ -29,20 +30,24 @@ public class LunchListActivity extends Activity {
 	
 		RestaurantsAdapter() {
 			super(LunchListActivity.this, android.R.layout.simple_list_item_1, restaurants);
+			Log.e("YONG", "Instantiated adapter");
 		}
 		
 		// Sets the icon, name and address of the Restaurant for the view.
 		public View getView(int position, View convertView, ViewGroup parent) {
 			View row = convertView;
 			RestaurantHolder viewHolder;
+			Log.e("YONG", "getView called");
 			
 			if (row == null) {
 				LayoutInflater inflater = getLayoutInflater();
 				row = inflater.inflate(R.layout.row, null);
 				viewHolder = new RestaurantHolder(row);
 				row.setTag(viewHolder);
+				Log.e("YONG", "row was null");
 			} else {
 				viewHolder = (RestaurantHolder)row.getTag();
+				Log.e("YONG", "row wasn't null");
 			}
 			
 			viewHolder.populateFrom(restaurants.get(position));
