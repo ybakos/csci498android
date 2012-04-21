@@ -58,8 +58,10 @@ public class LunchListActivity extends Activity {
 		private TextView name;
 		private TextView address;
 		private ImageView icon;
+		private View row;
 		
 		RestaurantHolder(View row) {
+			this.row = row;
 			name = (TextView)row.findViewById(R.id.name);
 			address = (TextView)row.findViewById(R.id.address);
 			icon = (ImageView)row.findViewById(R.id.icon);
@@ -70,7 +72,7 @@ public class LunchListActivity extends Activity {
 			address.setText(r.getAddress());
 			if (r.getType().equals("sit_down")) {
 				icon.setImageResource(R.drawable.icon_sit_down);
-				name.setTextColor(Color.YELLOW);
+				name.setTextColor(row.getResources().getColor(R.color.yellow));
 			} else if (r.getType().equals("take_out")) {
 				icon.setImageResource(R.drawable.icon_take_out);
 				name.setTextColor(Color.RED);
