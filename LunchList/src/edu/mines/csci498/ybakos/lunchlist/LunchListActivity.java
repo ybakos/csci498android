@@ -17,6 +17,7 @@ import android.graphics.Typeface;
 import java.util.List;
 import java.util.ArrayList;
 import android.util.Log;
+import android.graphics.Color;
 
 public class LunchListActivity extends Activity {
     
@@ -69,10 +70,13 @@ public class LunchListActivity extends Activity {
 			address.setText(r.getAddress());
 			if (r.getType().equals("sit_down")) {
 				icon.setImageResource(R.drawable.icon_sit_down);
+				name.setTextColor(Color.YELLOW);
 			} else if (r.getType().equals("take_out")) {
 				icon.setImageResource(R.drawable.icon_take_out);
+				name.setTextColor(Color.RED);
 			} else {
 				icon.setImageResource(R.drawable.icon_delivery);
+				name.setTextColor(Color.CYAN);
 			}
 		}
 	}
