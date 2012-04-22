@@ -26,28 +26,9 @@ public class LunchListActivity extends Activity {
 	
 	// A customized ArrayAdapter to customize it's getView behavior.
 	class RestaurantsAdapter extends ArrayAdapter<Restaurant> {
-	
-		private static final int ROW_TYPE_DELIVERY = 0;
-		private static final int ROW_TYPE_TAKE_OUT = 1;
-		private static final int ROW_TYPE_SIT_DOWN = 2;
-		
+			
 		RestaurantsAdapter() {
 			super(LunchListActivity.this, android.R.layout.simple_list_item_1, restaurants);
-		}
-		
-		public int getViewTypeCount() {
-			return 3;
-		}
-		
-		public int getItemViewType(int position) {
-			String type = restaurants.get(position).getType();
-			if (type == "delivery") {
-				return ROW_TYPE_DELIVERY;
-			} else if (type == "take_out") {
-				return ROW_TYPE_TAKE_OUT;
-			} else {
-				return ROW_TYPE_SIT_DOWN;
-			}
 		}
 		
 		// Sets the icon, name and address of the Restaurant for the view.
@@ -57,18 +38,13 @@ public class LunchListActivity extends Activity {
 			
 			if (row == null) {
 				LayoutInflater inflater = getLayoutInflater();
-				switch (getItemViewType(position)) {
-					case  ROW_TYPE_DELIVERY:
-						row = inflater.inflate(R.layout.row_delivery, null);
-						break;
-					case ROW_TYPE_TAKE_OUT:
-						row = inflater.inflate(R.layout.row_take_out, null);
-						break;
-					default:
-						row = inflater.inflate(R.layout.row_sit_down, null);
-						break;
+				if (restaurants.get(position).getType() == "delivery") {
+					row = inflater.inflate(R.layout.row_delivery, null);
+				} else if (restaurants.get(position).getType() == "take_out") {
+					row = inflater.inflate(R.layout.row_take_out, null);
+				} else {
+					row = inflater.inflate(R.layout.row_sit_down, null);
 				}
-				
 				viewHolder = new RestaurantHolder(row);
 				row.setTag(viewHolder);
 			} else {
