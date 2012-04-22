@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.view.LayoutInflater;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,7 +16,6 @@ import android.graphics.Typeface;
 import java.util.List;
 import java.util.ArrayList;
 import android.util.Log;
-import android.graphics.Color;
 
 public class LunchListActivity extends Activity {
     
@@ -29,8 +27,27 @@ public class LunchListActivity extends Activity {
 	// A customized ArrayAdapter to customize it's getView behavior.
 	class RestaurantsAdapter extends ArrayAdapter<Restaurant> {
 	
+		private static final int ROW_TYPE_DELIVERY = 0;
+		private static final int ROW_TYPE_TAKE_OUT = 1;
+		private static final int ROW_TYPE_SIT_DOWN = 2;
+		
 		RestaurantsAdapter() {
 			super(LunchListActivity.this, android.R.layout.simple_list_item_1, restaurants);
+		}
+		
+		public int getViewTypeCount() {
+			return 3;
+		}
+		
+		public int getItemViewType(int position) {
+			String type = restaurants.get(position).getType();
+			if (type == "delivery") {
+				return ROW_TYPE_DELIVERY;
+			} else if (type == "take_out") {
+				return ROW_TYPE_TAKE_OUT;
+			} else {
+				return ROW_TYPE_SIT_DOWN;
+			}
 		}
 		
 		// Sets the icon, name and address of the Restaurant for the view.
@@ -40,7 +57,18 @@ public class LunchListActivity extends Activity {
 			
 			if (row == null) {
 				LayoutInflater inflater = getLayoutInflater();
-				row = inflater.inflate(R.layout.row, null);
+				switch (getItemViewType(position)) {
+					case  ROW_TYPE_DELIVERY:
+						row = inflater.inflate(R.layout.row_delivery, null);
+						break;
+					case ROW_TYPE_TAKE_OUT:
+						row = inflater.inflate(R.layout.row_take_out, null);
+						break;
+					default:
+						row = inflater.inflate(R.layout.row_sit_down, null);
+						break;
+				}
+				
 				viewHolder = new RestaurantHolder(row);
 				row.setTag(viewHolder);
 			} else {
@@ -55,32 +83,20 @@ public class LunchListActivity extends Activity {
 	}
 	
 	static class RestaurantHolder {
+		
 		private TextView name;
 		private TextView address;
-		private ImageView icon;
-		private View row;
 		
 		RestaurantHolder(View row) {
-			this.row = row;
 			name = (TextView)row.findViewById(R.id.name);
 			address = (TextView)row.findViewById(R.id.address);
-			icon = (ImageView)row.findViewById(R.id.icon);
 		}
 		
 		void populateFrom(Restaurant r) {
 			name.setText(r.getName());
 			address.setText(r.getAddress());
-			if (r.getType().equals("sit_down")) {
-				icon.setImageResource(R.drawable.icon_sit_down);
-				name.setTextColor(row.getResources().getColor(R.color.yellow));
-			} else if (r.getType().equals("take_out")) {
-				icon.setImageResource(R.drawable.icon_take_out);
-				name.setTextColor(Color.RED);
-			} else {
-				icon.setImageResource(R.drawable.icon_delivery);
-				name.setTextColor(Color.CYAN);
-			}
 		}
+
 	}
 	
     @Override
