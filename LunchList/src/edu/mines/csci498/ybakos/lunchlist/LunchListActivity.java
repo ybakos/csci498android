@@ -1,6 +1,8 @@
 package edu.mines.csci498.ybakos.lunchlist;
 
-import android.app.Activity;
+import android.app.TabActivity;
+import android.widget.TabHost;
+import android.widget.AdapterView;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +18,6 @@ import android.graphics.Typeface;
 import java.util.List;
 import java.util.ArrayList;
 import android.util.Log;
-import android.app.TabActivity;
-import android.widget.TabHost;
-import android.widget.AdapterView;
-
 
 @SuppressWarnings("deprecation")
 public class LunchListActivity extends TabActivity {
@@ -28,6 +26,9 @@ public class LunchListActivity extends TabActivity {
 	RestaurantsAdapter restaurantsAdapter;
 	List<String> addresses;
 	ArrayAdapter<String> addressesAdapter;
+	EditText nameField;
+	AutoCompleteTextView addressField;
+	RadioGroup restaurantTypesGroup;
 	
 	// A customized ArrayAdapter to customize it's getView behavior.
 	class RestaurantsAdapter extends ArrayAdapter<Restaurant> {
@@ -80,12 +81,12 @@ public class LunchListActivity extends TabActivity {
 
 	}
 	
-    @SuppressWarnings("deprecation")
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
+        instantiateFormElements();
         setTypeFaces();
         configureButton();
         configureRestaurantsList();
@@ -107,10 +108,26 @@ public class LunchListActivity extends TabActivity {
     
     private AdapterView.OnItemClickListener onListClick = new AdapterView.OnItemClickListener() {
     	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-    		
+    		Log.d("LunchList", "TEST");
+    		Restaurant r = restaurants.get(position);
+    		nameField.setText(r.getName());
+    		addressField.setText(r.getAddress());
+    		if (r.getType() == "sit_down") {
+    			restaurantTypesGroup.check(R.id.sit_down);
+    		} else if (r.getType() == "take_out") {
+    			restaurantTypesGroup.check(R.id.take_out);
+    		} else {
+    			restaurantTypesGroup.check(R.id.delivery);
+    		}
     	}
     };
     	
+    private void instantiateFormElements() {
+    	nameField = (EditText)findViewById(R.id.name);
+        addressField = (AutoCompleteTextView)findViewById(R.id.address);
+        restaurantTypesGroup = (RadioGroup)findViewById(R.id.restaurantTypes);	
+    }
+    
     private void configureTabs() {
         TabHost.TabSpec spec = getTabHost().newTabSpec("tag1");
         spec.setContent(R.id.restaurants);
@@ -163,9 +180,8 @@ public class LunchListActivity extends TabActivity {
     // Create and configure the ArrayAdapter for managing the ArrayList of address strings.
     private void configureAddressAutoComplete() {
     	addresses = new ArrayList<String>();
-    	AutoCompleteTextView address = (AutoCompleteTextView) findViewById(R.id.address);
         addressesAdapter = new ArrayAdapter<String>(this, R.layout.address_list_item_for_autocomplete, addresses);
-        address.setAdapter(addressesAdapter);
+        addressField.setAdapter(addressesAdapter);
     }
         
 }
