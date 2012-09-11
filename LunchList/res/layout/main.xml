@@ -52,6 +52,11 @@
 			                android:text="@string/restaurantType03" />
 			        </RadioGroup>
 			    </TableRow>
+			    <TableRow>
+			        <TextView android:text="@string/lastVisitDateFieldLabel" />
+			        <DatePicker android:id="@+id/lastVisitDate" />
+			    </TableRow>
+			        
 	       	    <Button android:id="@+id/save"
 			        android:layout_width="match_parent"
 			        android:layout_height="wrap_content"

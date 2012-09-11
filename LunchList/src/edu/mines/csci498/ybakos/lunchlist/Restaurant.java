@@ -1,10 +1,13 @@
 package edu.mines.csci498.ybakos.lunchlist;
 
+import java.util.Calendar;
+
 public class Restaurant {
 
 	private String name = "";
 	private String address = "";
 	private String type = "";
+	private Calendar lastVisitDate;
 	
 	public String getType() {
 		return type;
@@ -30,8 +33,17 @@ public class Restaurant {
 		this.address = address;
 	}
 	
+	public Calendar getLastVisitDate() {
+		return lastVisitDate;
+	}
+	
+	public void setLastVisitDate(Calendar date) {
+		this.lastVisitDate = date;
+	}
+	
 	public String toString() {
 		return getName();
 	}
 
+	
 }

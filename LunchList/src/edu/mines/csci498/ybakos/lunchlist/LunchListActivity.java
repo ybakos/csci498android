@@ -1,5 +1,8 @@
 package edu.mines.csci498.ybakos.lunchlist;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.app.TabActivity;
 import android.widget.TabHost;
 import android.widget.AdapterView;
@@ -8,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.LayoutInflater;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.ListView;
@@ -15,6 +19,9 @@ import android.widget.RadioGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.graphics.Typeface;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.ArrayList;
 import android.util.Log;
@@ -29,6 +36,7 @@ public class LunchListActivity extends TabActivity {
 	EditText nameField;
 	AutoCompleteTextView addressField;
 	RadioGroup restaurantTypesGroup;
+	DatePicker lastVisitDatePicker;
 	
 	// A customized ArrayAdapter to customize it's getView behavior.
 	class RestaurantsAdapter extends ArrayAdapter<Restaurant> {
@@ -101,6 +109,10 @@ public class LunchListActivity extends TabActivity {
 			r.setName(((EditText)findViewById(R.id.name)).getText().toString());
 			r.setAddress(address);
 			r.setType(restaurantTypeFromRadioGroup((RadioGroup)findViewById(R.id.restaurantTypes)));
+			GregorianCalendar lastVisitDate = new GregorianCalendar(lastVisitDatePicker.getYear(),
+																	lastVisitDatePicker.getMonth(),
+																	lastVisitDatePicker.getDayOfMonth());
+			r.setLastVisitDate(lastVisitDate);
 			restaurantsAdapter.add(r);
 			addressesAdapter.add(address);
 		}
@@ -119,16 +131,13 @@ public class LunchListActivity extends TabActivity {
     		} else {
     			restaurantTypesGroup.check(R.id.delivery);
     		}
+    		lastVisitDatePicker.updateDate(r.getLastVisitDate().get(Calendar.YEAR),
+    									   r.getLastVisitDate().get(Calendar.MONTH),
+    									   r.getLastVisitDate().get(Calendar.DAY_OF_MONTH));
     		getTabHost().setCurrentTab(1);
     	}
     };
-    	
-    private void instantiateFormElements() {
-    	nameField = (EditText)findViewById(R.id.name);
-        addressField = (AutoCompleteTextView)findViewById(R.id.address);
-        restaurantTypesGroup = (RadioGroup)findViewById(R.id.restaurantTypes);	
-    }
-    
+       
     private void configureTabs() {
         TabHost.TabSpec spec = getTabHost().newTabSpec("tag1");
         spec.setContent(R.id.restaurants);
@@ -155,7 +164,14 @@ public class LunchListActivity extends TabActivity {
     			return "";		
     	}
     }
-
+ 	
+    private void instantiateFormElements() {
+    	nameField = (EditText)findViewById(R.id.name);
+        addressField = (AutoCompleteTextView)findViewById(R.id.address);
+        restaurantTypesGroup = (RadioGroup)findViewById(R.id.restaurantTypes);
+        lastVisitDatePicker = (DatePicker)findViewById(R.id.lastVisitDate);
+    }
+    
     // For fun.
     private void setTypeFaces() {
         TextView field = (TextView)findViewById(R.id.name);  
