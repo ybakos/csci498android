@@ -16,8 +16,11 @@ import android.graphics.Typeface;
 import java.util.List;
 import java.util.ArrayList;
 import android.util.Log;
+import android.app.TabActivity;
+import android.widget.TabHost;
 
-public class LunchListActivity extends Activity {
+@SuppressWarnings("deprecation")
+public class LunchListActivity extends TabActivity {
     
 	List<Restaurant> restaurants;
 	RestaurantsAdapter restaurantsAdapter;
@@ -75,7 +78,8 @@ public class LunchListActivity extends Activity {
 
 	}
 	
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
@@ -84,6 +88,7 @@ public class LunchListActivity extends Activity {
         configureButton();
         configureRestaurantsList();
         configureAddressAutoComplete();
+        configureTabs();
     }
     
     private View.OnClickListener onSave = new View.OnClickListener() {
@@ -98,6 +103,18 @@ public class LunchListActivity extends Activity {
     		}
     	};
     
+    private void configureTabs() {
+        TabHost.TabSpec spec = getTabHost().newTabSpec("tag1");
+        spec.setContent(R.id.restaurants);
+        spec.setIndicator("List", getResources().getDrawable(R.drawable.icon_list));
+        getTabHost().addTab(spec);
+        spec = getTabHost().newTabSpec("tag2");
+        spec.setContent(R.id.details);
+        spec.setIndicator("Details", getResources().getDrawable(R.drawable.icon_restaurant));
+        getTabHost().addTab(spec);
+        getTabHost().setCurrentTab(0);
+    }
+    	
     // Returns the restaurant type given a RadioGroup representing those types.
     private String restaurantTypeFromRadioGroup(RadioGroup group) {
     	if (group == null) return "";
