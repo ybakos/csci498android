@@ -18,10 +18,12 @@ import android.graphics.Typeface;
 import java.util.List;
 import java.util.ArrayList;
 import android.util.Log;
+import android.app.TabActivity;
+import android.widget.TabHost;
 
 @SuppressWarnings("deprecation")
 public class LunchListActivity extends TabActivity {
-    
+
 	List<Restaurant> restaurants;
 	RestaurantsAdapter restaurantsAdapter;
 	List<String> addresses;
@@ -29,19 +31,19 @@ public class LunchListActivity extends TabActivity {
 	EditText nameField;
 	AutoCompleteTextView addressField;
 	RadioGroup restaurantTypesGroup;
-	
+
 	// A customized ArrayAdapter to customize it's getView behavior.
 	class RestaurantsAdapter extends ArrayAdapter<Restaurant> {
-			
+
 		RestaurantsAdapter() {
 			super(LunchListActivity.this, android.R.layout.simple_list_item_1, restaurants);
 		}
-		
+
 		// Sets the icon, name and address of the Restaurant for the view.
 		public View getView(int position, View convertView, ViewGroup parent) {
 			View row = convertView;
 			RestaurantHolder viewHolder;
-			
+
 			if (row == null) {
 				LayoutInflater inflater = getLayoutInflater();
 				if (restaurants.get(position).getType() == "delivery") {
@@ -56,36 +58,36 @@ public class LunchListActivity extends TabActivity {
 			} else {
 				viewHolder = (RestaurantHolder)row.getTag();
 			}
-			
+
 			viewHolder.populateFrom(restaurants.get(position));
-			
+
 			return row;
 		}
-		
+
 	}
-	
+
 	static class RestaurantHolder {
-		
+
 		private TextView name;
 		private TextView address;
-		
+
 		RestaurantHolder(View row) {
 			name = (TextView)row.findViewById(R.id.name);
 			address = (TextView)row.findViewById(R.id.address);
 		}
-		
+
 		void populateFrom(Restaurant r) {
 			name.setText(r.getName());
 			address.setText(r.getAddress());
 		}
 
 	}
-	
+
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        
+
         instantiateFormElements();
         setTypeFaces();
         configureButton();
@@ -93,7 +95,7 @@ public class LunchListActivity extends TabActivity {
         configureAddressAutoComplete();
         configureTabs();
     }
-    
+
     private View.OnClickListener onSave = new View.OnClickListener() {
 		public void onClick(View v) {
 			Restaurant r = new Restaurant();
@@ -105,7 +107,7 @@ public class LunchListActivity extends TabActivity {
 			addressesAdapter.add(address);
 		}
     };
-    
+
     private AdapterView.OnItemClickListener onListClick = new AdapterView.OnItemClickListener() {
     	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
     		Log.d("LunchList", "TEST");
@@ -122,13 +124,13 @@ public class LunchListActivity extends TabActivity {
     		getTabHost().setCurrentTab(1);
     	}
     };
-    	
+
     private void instantiateFormElements() {
     	nameField = (EditText)findViewById(R.id.name);
         addressField = (AutoCompleteTextView)findViewById(R.id.address);
-        restaurantTypesGroup = (RadioGroup)findViewById(R.id.restaurantTypes);	
+        restaurantTypesGroup = (RadioGroup)findViewById(R.id.restaurantTypes);
     }
-    
+
     private void configureTabs() {
         TabHost.TabSpec spec = getTabHost().newTabSpec("tag1");
         spec.setContent(R.id.restaurants);
@@ -140,7 +142,7 @@ public class LunchListActivity extends TabActivity {
         getTabHost().addTab(spec);
         getTabHost().setCurrentTab(0);
     }
-    	
+
     // Returns the restaurant type given a RadioGroup representing those types.
     private String restaurantTypeFromRadioGroup(RadioGroup group) {
     	if (group == null) return "";
@@ -152,23 +154,23 @@ public class LunchListActivity extends TabActivity {
     		case R.id.delivery:
     			return "delivery";
     		default:
-    			return "";		
+    			return "";
     	}
     }
 
     // For fun.
     private void setTypeFaces() {
-        TextView field = (TextView)findViewById(R.id.name);  
-        Typeface font = Typeface.createFromAsset(getAssets(), "Alphabits-Regular.ttf");  
+        TextView field = (TextView)findViewById(R.id.name);
+        Typeface font = Typeface.createFromAsset(getAssets(), "Alphabits-Regular.ttf");
         field.setTypeface(font);
     }
-    
+
     // The main save button in this Activity.
     private void configureButton() {
         Button save = (Button)findViewById(R.id.save);
         save.setOnClickListener(onSave);
     }
-    
+
     // Creates and configures the ArrayAdapter for managing the ArrayList of Restaurant objects.
     private void configureRestaurantsList() {
     	restaurants = new ArrayList<Restaurant>();
@@ -177,12 +179,12 @@ public class LunchListActivity extends TabActivity {
         restaurantList.setAdapter(restaurantsAdapter);
         restaurantList.setOnItemClickListener(onListClick);
     }
-    
+
     // Create and configure the ArrayAdapter for managing the ArrayList of address strings.
     private void configureAddressAutoComplete() {
     	addresses = new ArrayList<String>();
         addressesAdapter = new ArrayAdapter<String>(this, R.layout.address_list_item_for_autocomplete, addresses);
         addressField.setAdapter(addressesAdapter);
     }
-        
+
 }
