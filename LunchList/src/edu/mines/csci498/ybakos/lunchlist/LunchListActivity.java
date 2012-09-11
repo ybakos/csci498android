@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import android.util.Log;
 import android.app.TabActivity;
 import android.widget.TabHost;
+import android.widget.AdapterView;
+
 
 @SuppressWarnings("deprecation")
 public class LunchListActivity extends TabActivity {
@@ -92,17 +94,23 @@ public class LunchListActivity extends TabActivity {
     }
     
     private View.OnClickListener onSave = new View.OnClickListener() {
-    		public void onClick(View v) {
-    			Restaurant r = new Restaurant();
-    			String address = ((EditText)findViewById(R.id.address)).getText().toString(); // used twice
-    			r.setName(((EditText)findViewById(R.id.name)).getText().toString());
-    			r.setAddress(address);
-    			r.setType(restaurantTypeFromRadioGroup((RadioGroup)findViewById(R.id.restaurantTypes)));
-    			restaurantsAdapter.add(r);
-    			addressesAdapter.add(address);
-    		}
-    	};
+		public void onClick(View v) {
+			Restaurant r = new Restaurant();
+			String address = ((EditText)findViewById(R.id.address)).getText().toString(); // used twice
+			r.setName(((EditText)findViewById(R.id.name)).getText().toString());
+			r.setAddress(address);
+			r.setType(restaurantTypeFromRadioGroup((RadioGroup)findViewById(R.id.restaurantTypes)));
+			restaurantsAdapter.add(r);
+			addressesAdapter.add(address);
+		}
+    };
     
+    private AdapterView.OnItemClickListener onListClick = new AdapterView.OnItemClickListener() {
+    	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    		
+    	}
+    };
+    	
     private void configureTabs() {
         TabHost.TabSpec spec = getTabHost().newTabSpec("tag1");
         spec.setContent(R.id.restaurants);
@@ -149,6 +157,7 @@ public class LunchListActivity extends TabActivity {
         ListView restaurantList = (ListView)findViewById(R.id.restaurants);
         restaurantsAdapter = new RestaurantsAdapter();
         restaurantList.setAdapter(restaurantsAdapter);
+        restaurantList.setOnItemClickListener(onListClick);
     }
     
     // Create and configure the ArrayAdapter for managing the ArrayList of address strings.
