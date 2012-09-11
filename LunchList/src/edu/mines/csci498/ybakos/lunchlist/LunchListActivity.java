@@ -119,6 +119,7 @@ public class LunchListActivity extends TabActivity {
     		} else {
     			restaurantTypesGroup.check(R.id.delivery);
     		}
+    		getTabHost().setCurrentTab(1);
     	}
     };
     	
