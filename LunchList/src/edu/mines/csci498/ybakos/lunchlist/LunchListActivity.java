@@ -110,7 +110,6 @@ public class LunchListActivity extends TabActivity {
 
     private AdapterView.OnItemClickListener onListClick = new AdapterView.OnItemClickListener() {
     	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-    		Log.d("LunchList", "TEST");
     		Restaurant r = restaurants.get(position);
     		nameField.setText(r.getName());
     		addressField.setText(r.getAddress());
