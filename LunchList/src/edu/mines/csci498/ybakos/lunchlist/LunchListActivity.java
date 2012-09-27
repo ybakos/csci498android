@@ -83,6 +83,11 @@ public class LunchListActivity extends TabActivity {
 			runOnUiThread(new Runnable() {
 				public void run() { setProgressBarVisibility(false); }
 			});
+			runOnUiThread(new Runnable() {
+				public void run() {
+					Toast.makeText(LunchListActivity.this, "All done yo!", Toast.LENGTH_LONG).show();
+				}
+			});
 		}
 	};
 	
@@ -138,7 +143,7 @@ public class LunchListActivity extends TabActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == R.id.toast) {
-			String message= "No restaurant selected";
+			String message = "No restaurant selected";
 			if (currentRestaurant != null) {
 				message = currentRestaurant.getNotes();
 			}
