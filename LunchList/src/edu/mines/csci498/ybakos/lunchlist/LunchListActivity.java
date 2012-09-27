@@ -4,6 +4,7 @@ import android.app.TabActivity;
 import android.widget.*;
 import android.view.*;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.graphics.Typeface;
 import android.util.Log;
 import java.util.*;
@@ -19,7 +20,8 @@ public class LunchListActivity extends TabActivity {
 	AutoCompleteTextView addressField;
 	RadioGroup restaurantTypesGroup;
 	EditText notesField;
-	Restaurant currentRestaurant;
+	Restaurant currentRestaurant; // for Toast
+	int progress; // for progress bar
 
 	// A customized ArrayAdapter to customize it's getView behavior.
 	class RestaurantsAdapter extends ArrayAdapter<Restaurant> {
@@ -73,6 +75,14 @@ public class LunchListActivity extends TabActivity {
 
 	}
 
+	private Runnable longTask = new Runnable() {
+		public void run() {
+			for (int i = 0; i < 20; i++) {
+				doSomeLongWork(500);
+			}
+		}
+	};
+	
     private View.OnClickListener onSave = new View.OnClickListener() {
 		public void onClick(View v) {
 			currentRestaurant = new Restaurant();
@@ -105,6 +115,7 @@ public class LunchListActivity extends TabActivity {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_PROGRESS);
         setContentView(R.layout.main);
 
         instantiateFormElements();
@@ -197,6 +208,10 @@ public class LunchListActivity extends TabActivity {
     	addresses = new ArrayList<String>();
         addressesAdapter = new ArrayAdapter<String>(this, R.layout.address_list_item_for_autocomplete, addresses);
         addressField.setAdapter(addressesAdapter);
+    }
+    
+    private void doSomeLongWork(final int increment) {
+    	SystemClock.sleep(250); // simulating long task
     }
 
 }

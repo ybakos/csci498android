@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <item android:id="@+id/toast" android:title="Raise Toast" android:icon="@drawable/drink"></item>
+    <item android:id="@+id/run" android:title="Run Long Task" android:icon="@drawable/run"></item>
 </menu>
