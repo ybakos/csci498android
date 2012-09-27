@@ -1,29 +1,12 @@
 package edu.mines.csci498.ybakos.lunchlist;
 
 import android.app.TabActivity;
-import android.widget.TabHost;
-import android.widget.AdapterView;
+import android.widget.*;
+import android.view.*;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.LayoutInflater;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.ListView;
-import android.widget.RadioGroup;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.Toast;
 import android.graphics.Typeface;
-import java.util.List;
-import java.util.ArrayList;
 import android.util.Log;
-import android.app.TabActivity;
-import android.widget.TabHost;
+import java.util.*;
 
 @SuppressWarnings("deprecation")
 public class LunchListActivity extends TabActivity {
@@ -138,6 +121,7 @@ public class LunchListActivity extends TabActivity {
 		return super.onCreateOptionsMenu(menu);
 	}
 	
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == R.id.toast) {
 			String message= "No restaurant selected";
