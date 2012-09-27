@@ -4,6 +4,9 @@ import android.app.TabActivity;
 import android.widget.TabHost;
 import android.widget.AdapterView;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.LayoutInflater;
@@ -14,6 +17,7 @@ import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Toast;
 import android.graphics.Typeface;
 import java.util.List;
 import java.util.ArrayList;
@@ -32,6 +36,7 @@ public class LunchListActivity extends TabActivity {
 	AutoCompleteTextView addressField;
 	RadioGroup restaurantTypesGroup;
 	EditText notesField;
+	Restaurant currentRestaurant;
 
 	// A customized ArrayAdapter to customize it's getView behavior.
 	class RestaurantsAdapter extends ArrayAdapter<Restaurant> {
@@ -85,6 +90,35 @@ public class LunchListActivity extends TabActivity {
 
 	}
 
+    private View.OnClickListener onSave = new View.OnClickListener() {
+		public void onClick(View v) {
+			currentRestaurant = new Restaurant();
+			String address = ((EditText)findViewById(R.id.address)).getText().toString(); // used twice
+			currentRestaurant.setName(((EditText)findViewById(R.id.name)).getText().toString());
+			currentRestaurant.setAddress(address);
+			currentRestaurant.setType(restaurantTypeFromRadioGroup((RadioGroup)findViewById(R.id.restaurantTypes)));
+			currentRestaurant.setNotes(((EditText)findViewById(R.id.notes)).getText().toString());
+			restaurantsAdapter.add(currentRestaurant);
+			addressesAdapter.add(address);
+		}
+    };
+
+    private AdapterView.OnItemClickListener onListClick = new AdapterView.OnItemClickListener() {
+    	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    		currentRestaurant = restaurants.get(position);
+    		nameField.setText(currentRestaurant.getName());
+    		addressField.setText(currentRestaurant.getAddress());
+    		if (currentRestaurant.getType() == "sit_down") {
+    			restaurantTypesGroup.check(R.id.sit_down);
+    		} else if (currentRestaurant.getType() == "take_out") {
+    			restaurantTypesGroup.check(R.id.take_out);
+    		} else {
+    			restaurantTypesGroup.check(R.id.delivery);
+    		}
+    		getTabHost().setCurrentTab(1);
+    	}
+    };
+	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,35 +132,26 @@ public class LunchListActivity extends TabActivity {
         configureTabs();
     }
 
-    private View.OnClickListener onSave = new View.OnClickListener() {
-		public void onClick(View v) {
-			Restaurant r = new Restaurant();
-			String address = ((EditText)findViewById(R.id.address)).getText().toString(); // used twice
-			r.setName(((EditText)findViewById(R.id.name)).getText().toString());
-			r.setAddress(address);
-			r.setType(restaurantTypeFromRadioGroup((RadioGroup)findViewById(R.id.restaurantTypes)));
-			r.setNotes(((EditText)findViewById(R.id.notes)).getText().toString());
-			restaurantsAdapter.add(r);
-			addressesAdapter.add(address);
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		new MenuInflater(this).inflate(R.menu.option, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+	
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getItemId() == R.id.toast) {
+			String message= "No restaurant selected";
+			if (currentRestaurant != null) {
+				message = currentRestaurant.getNotes();
+			}
+			
+			Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+			
+			return true;
 		}
-    };
-
-    private AdapterView.OnItemClickListener onListClick = new AdapterView.OnItemClickListener() {
-    	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-    		Restaurant r = restaurants.get(position);
-    		nameField.setText(r.getName());
-    		addressField.setText(r.getAddress());
-    		if (r.getType() == "sit_down") {
-    			restaurantTypesGroup.check(R.id.sit_down);
-    		} else if (r.getType() == "take_out") {
-    			restaurantTypesGroup.check(R.id.take_out);
-    		} else {
-    			restaurantTypesGroup.check(R.id.delivery);
-    		}
-    		getTabHost().setCurrentTab(1);
-    	}
-    };
-
+		return super.onOptionsItemSelected(item);
+	}
+	
     private void instantiateFormElements() {
     	nameField = (EditText)findViewById(R.id.name);
         addressField = (AutoCompleteTextView)findViewById(R.id.address);
