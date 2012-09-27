@@ -31,6 +31,7 @@ public class LunchListActivity extends TabActivity {
 	EditText nameField;
 	AutoCompleteTextView addressField;
 	RadioGroup restaurantTypesGroup;
+	EditText notesField;
 
 	// A customized ArrayAdapter to customize it's getView behavior.
 	class RestaurantsAdapter extends ArrayAdapter<Restaurant> {
@@ -77,6 +78,7 @@ public class LunchListActivity extends TabActivity {
 		}
 
 		void populateFrom(Restaurant r) {
+			Log.d("LunchList", r.getNotes());
 			name.setText(r.getName());
 			address.setText(r.getAddress());
 		}
@@ -103,6 +105,7 @@ public class LunchListActivity extends TabActivity {
 			r.setName(((EditText)findViewById(R.id.name)).getText().toString());
 			r.setAddress(address);
 			r.setType(restaurantTypeFromRadioGroup((RadioGroup)findViewById(R.id.restaurantTypes)));
+			r.setNotes(((EditText)findViewById(R.id.notes)).getText().toString());
 			restaurantsAdapter.add(r);
 			addressesAdapter.add(address);
 		}
@@ -128,6 +131,7 @@ public class LunchListActivity extends TabActivity {
     	nameField = (EditText)findViewById(R.id.name);
         addressField = (AutoCompleteTextView)findViewById(R.id.address);
         restaurantTypesGroup = (RadioGroup)findViewById(R.id.restaurantTypes);
+        notesField = (EditText)findViewById(R.id.name);
     }
 
     private void configureTabs() {

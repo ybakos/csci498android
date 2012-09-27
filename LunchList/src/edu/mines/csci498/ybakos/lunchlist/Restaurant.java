@@ -31,7 +31,7 @@ public class Restaurant {
 		this.address = address;
 	}
 	
-	public void setNotes(String note) {
+	public void setNotes(String notes) {
 		this.notes = notes;
 	}
 	
