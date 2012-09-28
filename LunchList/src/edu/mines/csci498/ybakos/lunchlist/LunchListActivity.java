@@ -8,6 +8,7 @@ import android.os.SystemClock;
 import android.graphics.Typeface;
 import android.util.Log;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @SuppressWarnings("deprecation")
 public class LunchListActivity extends TabActivity {
@@ -22,7 +23,9 @@ public class LunchListActivity extends TabActivity {
 	EditText notesField;
 	Restaurant currentRestaurant; // for Toast
 	int progress; // for progress bar
-
+	AtomicBoolean isActive = new AtomicBoolean(true);
+	
+	
 	// A customized ArrayAdapter to customize it's getView behavior.
 	class RestaurantsAdapter extends ArrayAdapter<Restaurant> {
 
@@ -77,7 +80,7 @@ public class LunchListActivity extends TabActivity {
 
 	private Runnable longTask = new Runnable() {
 		public void run() {
-			for (int i = 0; i < 10000; i += 200) {
+			for (int i = 0; i < 10000 && isActive.get(); i += 200) {
 				doSomeLongWork(200);
 			}
 			runOnUiThread(new Runnable() {
@@ -134,6 +137,12 @@ public class LunchListActivity extends TabActivity {
         configureTabs();
     }
 
+	@Override
+	public void onPause() {
+		super.onPause();
+		isActive.set(false);
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		new MenuInflater(this).inflate(R.menu.option, menu);
