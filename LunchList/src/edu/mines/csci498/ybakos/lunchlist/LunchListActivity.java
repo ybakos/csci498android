@@ -83,14 +83,19 @@ public class LunchListActivity extends TabActivity {
 			for (int i = 0; i < 10000 && isActive.get(); i += 200) {
 				doSomeLongWork(200);
 			}
-			runOnUiThread(new Runnable() {
-				public void run() { setProgressBarVisibility(false); }
-			});
-			runOnUiThread(new Runnable() {
-				public void run() {
-					Toast.makeText(LunchListActivity.this, "All done yo!", Toast.LENGTH_LONG).show();
-				}
-			});
+			if (isActive.get()) {
+				runOnUiThread(new Runnable() {
+					public void run() {
+						setProgressBarVisibility(false);
+						progress = 0; // reset progress only if we are active (contrived)
+					}
+				});
+				runOnUiThread(new Runnable() {
+					public void run() {
+						Toast.makeText(LunchListActivity.this, "All done yo!", Toast.LENGTH_LONG).show();
+					}
+				});
+			}
 		}
 	};
 	
@@ -144,6 +149,18 @@ public class LunchListActivity extends TabActivity {
 	}
 	
 	@Override
+	public void onResume() {
+		super.onResume();
+		isActive.set(true);
+		if (progress > 0) startWork();
+	}
+	
+	private void startWork() {
+		setProgressBarVisibility(true);
+		new Thread(longTask).start();
+	}
+	
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		new MenuInflater(this).inflate(R.menu.option, menu);
 		return super.onCreateOptionsMenu(menu);
@@ -159,9 +176,7 @@ public class LunchListActivity extends TabActivity {
 			Toast.makeText(this, message, Toast.LENGTH_LONG).show();
 			return true;
 		} else if (item.getItemId() == R.id.run) {
-			setProgressBarVisibility(true);
-			progress = 0;
-			new Thread(longTask).start();
+			startWork();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
