@@ -12,5 +12,6 @@
     <string name="restaurantType02">Sit-down</string>
     <string name="restaurantType03">Delivery</string>
     <string name="restaurantTypeIconDescription">Restaurant Type</string>
-
+    <string name="db_name">lunchlist.db</string>
+	<string name="db_create_table">CREATE TABLE restaurants (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, address TEXT, type TEXT, notes TEXT);</string>
 </resources>
