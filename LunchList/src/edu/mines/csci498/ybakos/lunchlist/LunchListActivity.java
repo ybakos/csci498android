@@ -71,7 +71,6 @@ public class LunchListActivity extends TabActivity {
 		}
 
 		void populateFrom(Restaurant r) {
-			Log.d("LunchList", r.getNotes());
 			name.setText(r.getName());
 			address.setText(r.getAddress());
 		}
@@ -111,6 +110,7 @@ public class LunchListActivity extends TabActivity {
 			addressesAdapter.add(address);
 		}
     };
+
 
     private AdapterView.OnItemClickListener onListClick = new AdapterView.OnItemClickListener() {
     	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
