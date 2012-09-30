@@ -24,8 +24,8 @@ public class LunchListActivity extends TabActivity {
 	Restaurant currentRestaurant; // for Toast
 	int progress; // for progress bar
 	AtomicBoolean isActive = new AtomicBoolean(true);
-	
-	
+	RestaurantHelper restaurantHelper;
+		
 	// A customized ArrayAdapter to customize it's getView behavior.
 	class RestaurantsAdapter extends ArrayAdapter<Restaurant> {
 
@@ -111,7 +111,6 @@ public class LunchListActivity extends TabActivity {
 		}
     };
 
-
     private AdapterView.OnItemClickListener onListClick = new AdapterView.OnItemClickListener() {
     	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
     		currentRestaurant = restaurants.get(position);
@@ -133,7 +132,8 @@ public class LunchListActivity extends TabActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_PROGRESS);
         setContentView(R.layout.main);
-
+        restaurantHelper = new RestaurantHelper(this);
+        
         instantiateFormElements();
         setTypeFaces();
         configureButton();
@@ -155,6 +155,12 @@ public class LunchListActivity extends TabActivity {
 		if (progress > 0) startWork();
 	}
 	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		restaurantHelper.close();
+	}
+	
 	private void startWork() {
 		setProgressBarVisibility(true);
 		new Thread(longTask).start();
@@ -169,7 +175,7 @@ public class LunchListActivity extends TabActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == R.id.toast) {
-			String message = "No restaurant selected";
+			String message = getString(R.string.option_unselected_message);
 			if (currentRestaurant != null) {
 				message = currentRestaurant.getNotes();
 			}
