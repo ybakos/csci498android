@@ -1,6 +1,8 @@
 package edu.mines.csci498.ybakos.lunchlist;
 
 import android.app.TabActivity;
+import android.content.Context;
+import android.database.Cursor;
 import android.widget.*;
 import android.view.*;
 import android.os.Bundle;
@@ -13,7 +15,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 @SuppressWarnings("deprecation")
 public class LunchListActivity extends TabActivity {
 
-	List<Restaurant> restaurants;
+	Cursor restaurants;
 	RestaurantsAdapter restaurantsAdapter;
 	List<String> addresses;
 	ArrayAdapter<String> addressesAdapter;
@@ -27,34 +29,31 @@ public class LunchListActivity extends TabActivity {
 	RestaurantHelper restaurantHelper;
 		
 	// A customized ArrayAdapter to customize it's getView behavior.
-	class RestaurantsAdapter extends ArrayAdapter<Restaurant> {
+	class RestaurantsAdapter extends CursorAdapter {
 
-		RestaurantsAdapter() {
-			super(LunchListActivity.this, android.R.layout.simple_list_item_1, restaurants);
+		RestaurantsAdapter(Cursor c) {
+			super(LunchListActivity.this, c);
 		}
 
-		// Sets the icon, name and address of the Restaurant for the view.
-		public View getView(int position, View convertView, ViewGroup parent) {
-			View row = convertView;
-			RestaurantHolder viewHolder;
-
-			if (row == null) {
-				LayoutInflater inflater = getLayoutInflater();
-				if (restaurants.get(position).getType() == "delivery") {
-					row = inflater.inflate(R.layout.row_delivery, null);
-				} else if (restaurants.get(position).getType() == "take_out") {
-					row = inflater.inflate(R.layout.row_take_out, null);
-				} else {
-					row = inflater.inflate(R.layout.row_sit_down, null);
-				}
-				viewHolder = new RestaurantHolder(row);
-				row.setTag(viewHolder);
+		@Override
+		public void bindView(View row, Context context, Cursor cursor) {
+			RestaurantHolder viewHolder = (RestaurantHolder) row.getTag();
+			viewHolder.populateFrom(cursor, restaurantHelper);
+		}
+		
+		@Override
+		public View newView(Context context, Cursor cursor, ViewGroup parent) {
+			LayoutInflater inflater = getLayoutInflater();
+			View row;
+			if (cursor.getString(3) == "delivery") {
+				row = inflater.inflate(R.layout.row_delivery, parent, false);
+			} else if (cursor.getString(3) == "take_out") {
+				row = inflater.inflate(R.layout.row_take_out, parent, false);
 			} else {
-				viewHolder = (RestaurantHolder)row.getTag();
+				row = inflater.inflate(R.layout.row_sit_down, parent, false);
 			}
-
-			viewHolder.populateFrom(restaurants.get(position));
-
+			RestaurantHolder viewHolder = new RestaurantHolder(row);
+			row.setTag(viewHolder);
 			return row;
 		}
 
@@ -70,9 +69,9 @@ public class LunchListActivity extends TabActivity {
 			address = (TextView)row.findViewById(R.id.address);
 		}
 
-		void populateFrom(Restaurant r) {
-			name.setText(r.getName());
-			address.setText(r.getAddress());
+		void populateFrom(Cursor c, RestaurantHelper helper) {
+			name.setText(helper.getName(c));
+			address.setText(helper.getAddress(c));
 		}
 
 	}
@@ -113,7 +112,11 @@ public class LunchListActivity extends TabActivity {
 
     private AdapterView.OnItemClickListener onListClick = new AdapterView.OnItemClickListener() {
     	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-    		currentRestaurant = restaurants.get(position);
+    		restaurants.moveToPosition(position);
+    		currentRestaurant.setName(restaurantHelper.getName(restaurants));
+    		currentRestaurant.setAddress(restaurantHelper.getAddress(restaurants));
+    		currentRestaurant.setNotes(restaurantHelper.getNotes(restaurants));
+    		currentRestaurant.setType(restaurantHelper.getType(restaurants));
     		nameField.setText(currentRestaurant.getName());
     		addressField.setText(currentRestaurant.getAddress());
     		if (currentRestaurant.getType() == "sit_down") {
@@ -237,9 +240,10 @@ public class LunchListActivity extends TabActivity {
 
     // Creates and configures the ArrayAdapter for managing the ArrayList of Restaurant objects.
     private void configureRestaurantsList() {
-    	restaurants = new ArrayList<Restaurant>();
+    	restaurants = restaurantHelper.getAll();
+    	startManagingCursor(restaurants);
         ListView restaurantList = (ListView)findViewById(R.id.restaurants);
-        restaurantsAdapter = new RestaurantsAdapter();
+        restaurantsAdapter = new RestaurantsAdapter(restaurants);
         restaurantList.setAdapter(restaurantsAdapter);
         restaurantList.setOnItemClickListener(onListClick);
     }
