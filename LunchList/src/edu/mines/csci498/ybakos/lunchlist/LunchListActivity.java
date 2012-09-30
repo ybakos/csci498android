@@ -106,7 +106,7 @@ public class LunchListActivity extends TabActivity {
 			currentRestaurant.setAddress(address);
 			currentRestaurant.setType(restaurantTypeFromRadioGroup((RadioGroup)findViewById(R.id.restaurantTypes)));
 			currentRestaurant.setNotes(((EditText)findViewById(R.id.notes)).getText().toString());
-			restaurantsAdapter.add(currentRestaurant);
+			restaurantHelper.insert(currentRestaurant);
 			addressesAdapter.add(address);
 		}
     };
