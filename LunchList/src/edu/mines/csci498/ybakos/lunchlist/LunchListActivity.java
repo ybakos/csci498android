@@ -5,6 +5,7 @@ import android.app.TabActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.*;
@@ -56,6 +57,8 @@ public class LunchListActivity extends ListActivity {
 		if (item.getItemId() == R.id.add) {
 			startActivity(new Intent(LunchListActivity.this, DetailForm.class));
 			return true;
+		} else if (item.getItemId() == R.id.www) {
+			startActivity(new Intent("android.intent.ACTION_VIEW", Uri.parse(helper.getUrl(model))));
 		}
 		return super.onOptionsItemSelected(item);
 	}

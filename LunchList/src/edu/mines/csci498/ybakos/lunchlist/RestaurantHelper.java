@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 class RestaurantHelper extends SQLiteOpenHelper {
 
-	private static final int SCHEMA_VERSION = 1;
+	private static final int SCHEMA_VERSION = 2;
 	private Context context;
 
 	public RestaurantHelper(Context context) {
@@ -24,7 +24,9 @@ class RestaurantHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		// intentionally blank
+		if (newVersion == 2) {
+			db.execSQL(context.getString(R.string.migration01_add_url_to_restaurants));
+		}
 	}
 
 	public Cursor getAll() {
@@ -69,6 +71,11 @@ class RestaurantHelper extends SQLiteOpenHelper {
 
 	public String getNotes(Cursor c) {
 		return c.getString(4);
+	}
+	
+	// Just a stub, to illustrate launching a browser activity via uri.
+	public String getUrl(Cursor c) {
+		return "http://developer.android.com";
 	}
 	
 }
