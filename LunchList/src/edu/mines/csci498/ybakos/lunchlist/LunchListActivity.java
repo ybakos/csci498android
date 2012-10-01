@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.*;
 import android.widget.*;
 
@@ -28,6 +29,7 @@ public class LunchListActivity extends ListActivity {
 		startManagingCursor(model);
 		adapter = new RestaurantAdapter(model);
 		setListAdapter(adapter);
+		Log.d("LUNCHLIST", "DONE");
 	}
 
 	@Override
