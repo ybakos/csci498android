@@ -11,6 +11,9 @@ import android.widget.*;
 
 @SuppressWarnings("deprecation")
 public class LunchListActivity extends ListActivity {
+	
+	public static final String ID_EXTRA="edu.mines.csci498.ybakos.lunchlist._ID";
+	
 	Cursor model;
 	RestaurantAdapter adapter;
 	RestaurantHelper helper;
@@ -25,7 +28,6 @@ public class LunchListActivity extends ListActivity {
 		startManagingCursor(model);
 		adapter = new RestaurantAdapter(model);
 		setListAdapter(adapter);
-
 	}
 
 	@Override
@@ -34,14 +36,13 @@ public class LunchListActivity extends ListActivity {
 		helper.close();
 	}
 
+	@Override
+	public void onListItemClick(ListView list, View view, int position, long id) {
+		Intent intent = new Intent(LunchListActivity.this, DetailForm.class);
+		intent.putExtra(ID_EXTRA, String.valueOf(id));
+		startActivity(intent);
+	}
 
-
-	private AdapterView.OnItemClickListener onListClick = new AdapterView.OnItemClickListener() {
-		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			Intent intent = new Intent(LunchListActivity.this, DetailForm.class);
-			startActivity(intent);
-		}
-	};
 
 	class RestaurantAdapter extends CursorAdapter {
 		

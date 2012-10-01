@@ -13,6 +13,7 @@ public class DetailForm extends Activity {
 	EditText notes;
 	RadioGroup types;
 	RestaurantHelper helper;
+	String restaurantId;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -26,8 +27,11 @@ public class DetailForm extends Activity {
 		types = (RadioGroup) findViewById(R.id.restaurantTypes);
 
 		Button save = (Button) findViewById(R.id.save);
-
 		save.setOnClickListener(onSave);
+		
+		restaurantId = getIntent().getStringExtra(LunchListActivity.ID_EXTRA);
+		
+		if (restaurantId != null) load();
 	}
 	
 	private View.OnClickListener onSave = new View.OnClickListener() {
@@ -47,4 +51,27 @@ public class DetailForm extends Activity {
 		}
 	};
 	
+	private void load() {
+		Cursor c = helper.getById(restaurantId);
+		c.moveToFirst();
+
+		name.setText(helper.getName(c));
+		address.setText(helper.getAddress(c));
+		notes.setText(helper.getNotes(c));
+		
+		if (helper.getType(c).equals("sit_down")) {
+			types.check(R.id.sit_down);
+		} else if (helper.getType(c).equals("take_out")) {
+			types.check(R.id.take_out);
+		} else {
+			types.check(R.id.delivery);
+		}
+
+		c.close();
+	}
+	
+	public void onDestroy() {
+		super.onDestroy();
+		helper.close();
+	}
 }

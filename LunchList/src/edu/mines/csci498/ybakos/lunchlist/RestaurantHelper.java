@@ -40,6 +40,11 @@ class RestaurantHelper extends SQLiteOpenHelper {
 		getWritableDatabase().insert("restaurants", "name", cv);
 	}
 
+	public Cursor getById(String id) {
+		String[] args = {id};
+		return getReadableDatabase().rawQuery(context.getString(R.string.db_select_restaurant), args);
+	}
+	
 	public String getName(Cursor c) {
 		return c.getString(1);
 	}

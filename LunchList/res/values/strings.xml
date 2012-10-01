@@ -16,5 +16,6 @@
     <string name="db_name">lunchlist.db</string>
 	<string name="db_create_table">CREATE TABLE restaurants (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, address TEXT, type TEXT, notes TEXT);</string>
 	<string name="db_select_restaurants">SELECT _id, name, address, type, notes FROM restaurants ORDER BY name</string>
+	<string name="db_select_restaurant">SELECT _id, name, address, type, notes FROM restaurants WHERE _id=?</string>
 	<string name="empty_list_message">Use the menu to add a restaurant, yo!</string>
 </resources>
