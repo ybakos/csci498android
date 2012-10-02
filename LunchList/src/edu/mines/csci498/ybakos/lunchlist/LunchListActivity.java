@@ -59,6 +59,8 @@ public class LunchListActivity extends ListActivity {
 			return true;
 		} else if (item.getItemId() == R.id.www) {
 			startActivity(new Intent("android.intent.ACTION_VIEW", Uri.parse(helper.getUrl(model))));
+		} else if (item.getItemId() == R.id.prefs) {
+			startActivity(new Intent(LunchListActivity.this, EditPreferences.class));
 		}
 		return super.onOptionsItemSelected(item);
 	}
