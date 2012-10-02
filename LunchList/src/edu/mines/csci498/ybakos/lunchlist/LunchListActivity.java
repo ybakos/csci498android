@@ -10,11 +10,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.*;
 import android.widget.*;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 @SuppressWarnings("deprecation")
 public class LunchListActivity extends ListActivity {
 	
 	public static final String ID_EXTRA="edu.mines.csci498.ybakos.lunchlist._ID";
+	private SharedPreferences preferences;
 	
 	Cursor model;
 	RestaurantAdapter adapter;
@@ -24,13 +27,14 @@ public class LunchListActivity extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-
+		preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		
 		helper = new RestaurantHelper(this);
-		model = helper.getAll();
+		model = helper.getAll(preferences.getString("sort_order", "name"));
 		startManagingCursor(model);
 		adapter = new RestaurantAdapter(model);
 		setListAdapter(adapter);
-		Log.d("LUNCHLIST", "DONE");
+		
 	}
 
 	@Override

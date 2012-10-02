@@ -10,7 +10,7 @@ class RestaurantHelper extends SQLiteOpenHelper {
 
 	private static final int SCHEMA_VERSION = 2;
 	private Context context;
-
+	
 	public RestaurantHelper(Context context) {
 		super(context, context.getString(R.string.db_name), null,
 				SCHEMA_VERSION);
@@ -29,8 +29,8 @@ class RestaurantHelper extends SQLiteOpenHelper {
 		}
 	}
 
-	public Cursor getAll() {
-		return (getReadableDatabase().rawQuery(context.getString(R.string.db_select_restaurants), null));
+	public Cursor getAll(String orderBy) {
+		return (getReadableDatabase().rawQuery(context.getString(R.string.db_select_restaurants) + " " + orderBy, null));
 	}
 
 	public void insert(String name, String address, String type, String notes) {
