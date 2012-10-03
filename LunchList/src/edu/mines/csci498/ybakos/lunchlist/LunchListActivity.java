@@ -34,6 +34,11 @@ public class LunchListActivity extends ListActivity {
 		preferences.registerOnSharedPreferenceChangeListener(prefListener);
 	}
 
+	public void onSaveInstanceState(Bundle state) {
+		super.onSaveInstanceState(state);
+		Log.d("LunchListActivity", "LunchListActivity#onSaveInstanceState");
+	}
+		
 	private void initList() {
 		if (model != null) {
 			stopManagingCursor(model);
@@ -51,6 +56,16 @@ public class LunchListActivity extends ListActivity {
 		helper.close();
 	}
 
+	public void onPause() {
+		super.onPause();
+		Log.d("LunchListActivity", "LunchListActivity#onPause");
+	}
+	
+	public void onStop() {
+		super.onStop();
+		Log.d("LunchListActivity", "LunchListActivity#onStop");
+	}
+	
 	@Override
 	public void onListItemClick(ListView list, View view, int position, long id) {
 		Intent intent = new Intent(LunchListActivity.this, DetailForm.class);

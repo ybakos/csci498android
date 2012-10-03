@@ -70,6 +70,7 @@ public class DetailForm extends Activity {
 		state.putString("address", address.getText().toString());
 		state.putString("notes", notes.getText().toString());
 		state.putInt("type", types.getCheckedRadioButtonId());
+		Log.d("DetailForm", "DetailForm#onSaveInstanceState");
 	}
 	
 	@Override
@@ -86,6 +87,16 @@ public class DetailForm extends Activity {
 		helper.close();
 	}
 
+	public void onPause() {
+		super.onPause();
+		Log.d("DetailForm", "DetailForm#onPause");
+	}
+	
+	public void onStop() {
+		super.onStop();
+		Log.d("DetailForm", "DetailForm#onStop");
+	}
+	
 	private void load() {
 		Cursor c = helper.getById(restaurantId);
 		c.moveToFirst();
