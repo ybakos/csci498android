@@ -6,11 +6,11 @@
 	<TableLayout 
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
-	    android:stretchColumns="3"
-	    android:shrinkColumns="3">
+	    android:stretchColumns="2"
+	    android:shrinkColumns="2">
        	<TableRow>
        	    <TextView android:text="@string/nameFieldLabel" />
-        	<EditText android:id="@+id/name" android:hint="@string/nameFieldHint" android:layout_span="3" />
+        	<EditText android:id="@+id/name" android:hint="@string/nameFieldHint" android:layout_span="2" />
        	</TableRow>
 	    <TableRow>
 	        <TextView
@@ -18,8 +18,7 @@
 	            android:textColor="#AA6666"
 	    		android:typeface="monospace"
 	            android:text="@string/addressFieldLabel" />
-	        <AutoCompleteTextView android:id="@+id/address"
-		        android:singleLine="true" android:layout_span="3" />
+	        <AutoCompleteTextView android:id="@+id/address" android:singleLine="true" android:layout_span="2" />
 	    </TableRow>
 	    <TableRow>
 	        <TextView
@@ -37,7 +36,6 @@
 	                android:id="@+id/delivery"
 	                android:text="@string/restaurantType03" />
 	        </RadioGroup>
-	        <TextView android:text="Notes:" />
 			<LinearLayout android:orientation="vertical">
 	        	<EditText android:id="@+id/notes"
 	            	android:inputType="textMultiLine"
@@ -46,7 +44,12 @@
 	            	android:scrollHorizontally="false"
 	            	android:maxLines="2"
 	            	android:layout_width="match_parent"
-	            	android:layout_height="wrap_content" />
+	            	android:layout_height="wrap_content"
+	            	android:hint="notes" />
+	        	<EditText android:id="@+id/feed"
+	        	    android:layout_width="match_parent"
+	        	    android:layout_height="wrap_content"
+	        	    android:hint="Feed URL" />
 	        	<Button android:id="@+id/save"
 	        		android:layout_width="match_parent"
 	        		android:layout_height="wrap_content"

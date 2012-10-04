@@ -12,8 +12,7 @@ class RestaurantHelper extends SQLiteOpenHelper {
 	private Context context;
 	
 	public RestaurantHelper(Context context) {
-		super(context, context.getString(R.string.db_name), null,
-				SCHEMA_VERSION);
+		super(context, context.getString(R.string.db_name), null, SCHEMA_VERSION);
 		this.context = context;
 	}
 
@@ -57,7 +56,7 @@ class RestaurantHelper extends SQLiteOpenHelper {
 		cv.put("address", address);
 		cv.put("type", type);
 		cv.put("notes", notes);
-		cv.put("notes", feed);
+		cv.put("feed", feed);
 		getWritableDatabase().update("restaurants", cv, "_id=?", args);
 	}
 

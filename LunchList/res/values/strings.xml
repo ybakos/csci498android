@@ -8,6 +8,8 @@
     <string name="addressFieldLabel">Address</string>
     <string name="nameFieldHint">Restaurant name</string>
     <string name="typeFieldLabel">Type</string>
+    <string name="feedFieldHint">Feed URL</string>
+    <string name="notesFieldHint">Notes</string>
     <string name="restaurantType01">Take-out</string>
     <string name="restaurantType02">Sit-down</string>
     <string name="restaurantType03">Delivery</string>
