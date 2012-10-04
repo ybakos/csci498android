@@ -17,6 +17,8 @@
     <string name="option_unselected_message">No restaurant selected</string>
     <string name="empty_list_message">Use the menu to add a restaurant, yo!</string>
     
+    <string name="network_unavailable_message">You must be online in order to do that.</string>
+    
     <string name="db_name">lunchlist.db</string>
 	<string name="db_create_table">CREATE TABLE restaurants (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, address TEXT, type TEXT, notes TEXT, url TEXT, feed TEXT);</string>
 	<string name="db_select_restaurants">SELECT _id, name, address, type, notes, url, feed FROM restaurants ORDER BY</string>

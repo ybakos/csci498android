@@ -7,6 +7,9 @@
     <uses-sdk android:minSdkVersion="8" />
     <supports-screens android:largeScreens="true" android:normalScreens="true" android:smallScreens="false"/>
 	
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    
     <application
         android:debuggable="true"
         android:icon="@drawable/drink"
@@ -21,6 +24,7 @@
         </activity>
         <activity android:name=".DetailForm"></activity>
         <activity android:name=".EditPreferences"></activity>
+        <activity android:name=".FeedActivity"></activity>
     </application>
 
 </manifest>

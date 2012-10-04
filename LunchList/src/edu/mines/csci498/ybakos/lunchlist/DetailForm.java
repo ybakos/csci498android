@@ -1,7 +1,10 @@
 package edu.mines.csci498.ybakos.lunchlist;
 
 import android.app.Activity;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.content.Intent;
 import android.database.Cursor;
 import android.util.Log;
 import android.view.*;
@@ -49,7 +52,6 @@ public class DetailForm extends Activity {
 		}
 	};
 	
-	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -68,11 +70,6 @@ public class DetailForm extends Activity {
 		restaurantId = getIntent().getStringExtra(LunchListActivity.ID_EXTRA);
 		
 		if (restaurantId != null) load();
-	}
-
-	public boolean onCreateOptionsMenu(Menu menu) {
-		new MenuInflater(this).inflate(R.menu.details_option, menu);
-		return super.onCreateOptionsMenu(menu);
 	}
 	
 	@Override
@@ -95,12 +92,40 @@ public class DetailForm extends Activity {
 		types.check(state.getInt("type"));
 	}
 	
+	@Override
 	public void onDestroy() {
 		super.onDestroy();
 		helper.close();
 	}
 
-	private void load() {
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		new MenuInflater(this).inflate(R.menu.details_option, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getItemId() == R.id.feed) {
+			if (isNetworkAvailable()) {
+				Intent intent = new Intent(this, FeedActivity.class);
+				intent.putExtra(FeedActivity.FEED_URL, feed.getText().toString());
+				startActivity(intent);
+			} else {
+				Toast.makeText(this, getString(R.string.network_unavailable_message), Toast.LENGTH_LONG).show();
+			}
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
+	private boolean isNetworkAvailable() {
+		ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+		NetworkInfo info = cm.getActiveNetworkInfo();
+		return (info != null);
+	}
+	
+ 	private void load() {
 		Cursor c = helper.getById(restaurantId);
 		c.moveToFirst();
 
