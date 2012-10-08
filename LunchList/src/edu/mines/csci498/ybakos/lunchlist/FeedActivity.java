@@ -8,6 +8,8 @@ import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -91,35 +93,20 @@ public class FeedActivity extends ListActivity {
 		
 	}
 	
-	private static class FeedTask extends AsyncTask<String, Void, RSSFeed> {
+	private static class FeedHandler extends Handler {
 		
-		private RSSReader reader;
-		private Exception ex;
 		private FeedActivity activity;
 		
-		FeedTask(FeedActivity activity) {
-			reader = new RSSReader();
+		FeedHandler(FeedActivity activity) {
 			attach(activity);
 		}
 		
 		@Override
-		public RSSFeed doInBackground(String... urls) {
-			RSSFeed result = null;
-			try {
-				result = reader.load(urls[0]);
-			} catch (Exception e) {
-				this.ex = e;
-			}
-			return result;
-		}
-		
-		@Override
-		public void onPostExecute(RSSFeed feed) {
-			if (ex == null) {
-				activity.setFeed(feed);
+		public void handleMessage(Message message) {
+			if (message.arg1 == RESULT_OK) {
+				activity.setFeed((RSSFeed) message.obj);
 			} else {
-				Log.e("LunchList", "Exception parsing feed: ", ex);
-				activity.goBlooey(ex); // Tell the activity that we blooeyed. (sp?)
+				activity.goBlooey((Exception) message.obj);
 			}
 		}
 		
