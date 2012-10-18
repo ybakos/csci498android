@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 class RestaurantHelper extends SQLiteOpenHelper {
 
-	private static final int SCHEMA_VERSION = 3;
+	private static final int SCHEMA_VERSION = 5;
 	private Context context;
 	
 	public RestaurantHelper(Context context) {
