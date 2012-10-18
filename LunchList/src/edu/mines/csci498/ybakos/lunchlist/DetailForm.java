@@ -16,6 +16,7 @@ public class DetailForm extends Activity {
 	EditText address;
 	EditText notes;
 	EditText feed;
+	TextView location;
 	RadioGroup types;
 	RestaurantHelper helper;
 	String restaurantId;
@@ -31,6 +32,7 @@ public class DetailForm extends Activity {
 		notes = (EditText) findViewById(R.id.notes);
 		feed = (EditText) findViewById(R.id.feed);
 		types = (RadioGroup) findViewById(R.id.restaurantTypes);
+		location = (TextView) findViewById(R.id.location);
 		
 		restaurantId = getIntent().getStringExtra(LunchListActivity.ID_EXTRA);
 		
@@ -136,7 +138,7 @@ public class DetailForm extends Activity {
 		} else {
 			types.check(R.id.delivery);
 		}
-
+		location.setText(String.valueOf(helper.getLatitude(c)) + ", " + String.valueOf(helper.getLongitude(c)));
 		c.close();
 	}
 

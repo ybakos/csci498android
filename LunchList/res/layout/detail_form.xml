@@ -38,6 +38,10 @@
 	                android:text="@string/restaurantType03" />
 	        </RadioGroup>
 	    </TableRow>
+	    <TableRow>
+	        <TextView android:text="@string/locationFieldLabel" />
+	        <TextView android:id="@+id/location" android:text="@string/locationFieldHint" />
+	    </TableRow>
         <EditText android:id="@+id/notes"
             android:inputType="textMultiLine"
             android:gravity="top"
@@ -46,10 +50,6 @@
             android:maxLines="2"
             android:hint="@string/notesFieldHint" />
        	<EditText android:id="@+id/feed" android:hint="@string/feedFieldHint" />
-      	<Button android:id="@+id/save"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:text="@string/saveButtonLabel" />
     </TableLayout>
 
 </ScrollView>

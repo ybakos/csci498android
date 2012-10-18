@@ -50,10 +50,17 @@
 	        	    android:layout_width="match_parent"
 	        	    android:layout_height="wrap_content"
 	        	    android:hint="Feed URL" />
-	        	<Button android:id="@+id/save"
-	        		android:layout_width="match_parent"
-	        		android:layout_height="wrap_content"
-	        		android:text="@string/saveButtonLabel" />
+	        	<LinearLayout android:orientation="horizontal"
+	        	    android:layout_width="wrap_content"
+	        	    android:layout_height="wrap_content">
+	        	    <TextView android:text="@string/locationFieldLabel"
+	        	        android:layout_width="wrap_content"
+	        	    	android:layout_height="wrap_content" />
+	        		<TextView android:id="@+id/location"
+	        		    android:text="@string/locationFieldHint"
+	        		    android:layout_width="wrap_content"
+	        	    	android:layout_height="wrap_content" />
+	        	</LinearLayout>
 	        </LinearLayout>
 	    </TableRow>
     </TableLayout>
