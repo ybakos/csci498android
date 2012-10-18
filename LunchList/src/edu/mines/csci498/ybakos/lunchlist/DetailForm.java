@@ -30,9 +30,7 @@ public class DetailForm extends Activity {
 			helper.updateLocation(restaurantId, fix.getLatitude(), fix.getLongitude());
 			location.setText(String.valueOf(fix.getLatitude()) + ", " + String.valueOf(fix.getLongitude()));
 			locationManager.removeUpdates(onLocationChange);
-			Log.d("X", "Before toast");
 			Toast.makeText(DetailForm.this, "Location saved bwhah!", Toast.LENGTH_LONG).show();
-			Log.d("X", "After toast");
 		}
 		
 		public void onProviderDisabled(String provider) { /* not using */ }
