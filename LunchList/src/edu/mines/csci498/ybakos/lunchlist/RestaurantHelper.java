@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 class RestaurantHelper extends SQLiteOpenHelper {
 
-	private static final int SCHEMA_VERSION = 5;
+	private static final int SCHEMA_VERSION = 6;
 	private Context context;
 	
 	public RestaurantHelper(Context context) {
@@ -23,10 +23,15 @@ class RestaurantHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		if (oldVersion < 2 && newVersion >= 2) {
+		if (oldVersion < 2) {
 			db.execSQL(context.getString(R.string.migration01_add_url_to_restaurants));
-		} else if (oldVersion < 3 && newVersion >= 3) {
+		}
+		if (oldVersion < 3) {
 			db.execSQL(context.getString(R.string.migration02_add_feed_to_restaurants));
+		}
+		if (oldVersion < 6) {
+			db.execSQL(context.getString(R.string.migration03_add_lat_to_restaurants));
+			db.execSQL(context.getString(R.string.migration04_add_lon_to_restaurants));
 		}
 	}
 
@@ -60,6 +65,14 @@ class RestaurantHelper extends SQLiteOpenHelper {
 		getWritableDatabase().update("restaurants", cv, "_id=?", args);
 	}
 
+	public void updateLocation(String id, double lat, double lon) {
+		ContentValues cv = new ContentValues();
+		String[] args = {id};
+		cv.put("lat", lat);
+		cv.put("lon", lon);
+		getWritableDatabase().update("restaurants", cv, "_ID=?", args);
+	}
+	
 	public String getName(Cursor c) {
 		return c.getString(1);
 	}
@@ -78,6 +91,14 @@ class RestaurantHelper extends SQLiteOpenHelper {
 	
 	public String getFeed(Cursor c) {
 		return c.getString(6);
+	}
+	
+	public double getLatitude(Cursor c) {
+		return c.getDouble(7);
+	}
+	
+	public double getLongitude(Cursor c) {
+		return c.getDouble(8);
 	}
 	
 	// Just a stub, to illustrate launching a browser activity via uri.

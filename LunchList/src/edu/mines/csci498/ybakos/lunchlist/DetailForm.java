@@ -20,38 +20,6 @@ public class DetailForm extends Activity {
 	RestaurantHelper helper;
 	String restaurantId;
 	
-	private View.OnClickListener onSave = new View.OnClickListener() {
-		public void onClick(View v) {
-			Log.d("LUNCHLIST:", "onSave called");
-			String type = null;
-			switch (types.getCheckedRadioButtonId()) {
-			case R.id.sit_down:
-				type = "sit_down";
-				break;
-			case R.id.take_out:
-				type = "take_out";
-				break;
-			case R.id.delivery:
-				type = "delivery";
-				break;
-			}
-			if (restaurantId == null) {
-				helper.insert(name.getText().toString(),
-							  address.getText().toString(),
-							  type,
-							  notes.getText().toString(),
-							  feed.getText().toString());
-			} else {
-				helper.update(restaurantId, name.getText().toString(),
-										    address.getText().toString(),
-										    type,
-										    notes.getText().toString(),
-										    feed.getText().toString());
-			}
-			finish();
-		}
-	};
-	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -63,9 +31,6 @@ public class DetailForm extends Activity {
 		notes = (EditText) findViewById(R.id.notes);
 		feed = (EditText) findViewById(R.id.feed);
 		types = (RadioGroup) findViewById(R.id.restaurantTypes);
-
-		Button save = (Button) findViewById(R.id.save);
-		save.setOnClickListener(onSave);
 		
 		restaurantId = getIntent().getStringExtra(LunchListActivity.ID_EXTRA);
 		
@@ -97,7 +62,13 @@ public class DetailForm extends Activity {
 		super.onDestroy();
 		helper.close();
 	}
-
+	
+	@Override
+	public void onPause() {
+		save();
+		super.onPause();
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		new MenuInflater(this).inflate(R.menu.details_option, menu);
@@ -118,11 +89,36 @@ public class DetailForm extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
-	private boolean isNetworkAvailable() {
-		ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-		NetworkInfo info = cm.getActiveNetworkInfo();
-		return (info != null);
+
+	private void save() {
+		if (name.getText().toString().length() > 0) {
+			String type = null;
+			switch (types.getCheckedRadioButtonId()) {
+				case R.id.sit_down:
+					type = "sit_down";
+					break;
+				case R.id.take_out:
+					type = "take_out";
+					break;
+				case R.id.delivery:
+					type = "delivery";
+					break;
+			}
+			if (restaurantId == null) {
+				helper.insert(name.getText().toString(),
+							  address.getText().toString(),
+							  type,
+							  notes.getText().toString(),
+							  feed.getText().toString());
+			} else {
+				helper.update(restaurantId,
+							  name.getText().toString(),
+							  address.getText().toString(),
+							  type,
+							  notes.getText().toString(),
+							  feed.getText().toString());
+			}
+		}
 	}
 	
  	private void load() {
@@ -142,6 +138,12 @@ public class DetailForm extends Activity {
 		}
 
 		c.close();
+	}
+
+	private boolean isNetworkAvailable() {
+		ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+		NetworkInfo info = cm.getActiveNetworkInfo();
+		return (info != null);
 	}
 
 }
