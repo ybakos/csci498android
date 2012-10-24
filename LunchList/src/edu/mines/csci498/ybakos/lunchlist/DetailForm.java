@@ -24,6 +24,8 @@ public class DetailForm extends Activity {
 	RestaurantHelper helper;
 	String restaurantId;
 	LocationManager locationManager;
+	double latitude;
+	double longitude;
 	
 	LocationListener onLocationChange = new LocationListener() {
 		public void onLocationChanged(Location fix) {
@@ -54,6 +56,9 @@ public class DetailForm extends Activity {
 		restaurantId = getIntent().getStringExtra(LunchListActivity.ID_EXTRA);
 		
 		locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+		
+		latitude = 0.0d;
+		longitude = 0.0d;
 		
 		if (restaurantId != null) load();
 	}
@@ -119,6 +124,14 @@ public class DetailForm extends Activity {
 			return true;
 		} else if (item.getItemId() == R.id.location) {
 			locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, onLocationChange);
+			return true;
+		} else if (item.getItemId() == R.id.map){
+			Intent intent = new Intent(this, RestaurantMap.class);
+			intent.putExtra(RestaurantMap.EXTRA_LATITUDE, latitude);
+			intent.putExtra(RestaurantMap.EXTRA_LONGITUDE, latitude);
+			intent.putExtra(RestaurantMap.EXTRA_NAME, name.getText().toString());
+			startActivity(intent);
+			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -169,7 +182,9 @@ public class DetailForm extends Activity {
 		} else {
 			types.check(R.id.delivery);
 		}
-		location.setText(String.valueOf(helper.getLatitude(c)) + ", " + String.valueOf(helper.getLongitude(c)));
+		latitude = helper.getLatitude(c);
+		longitude = helper.getLongitude(c);
+		location.setText(String.valueOf(latitude) + ", " + String.valueOf(longitude));
 		c.close();
 	}
 
