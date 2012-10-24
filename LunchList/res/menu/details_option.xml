@@ -3,5 +3,8 @@
     <item android:id="@+id/feed" android:title="RSS Feed" android:icon="@drawable/icon_menu_rss" />
 	<item android:id="@+id/location"
 	    android:title="Save Location"
-	    android:icon="@android:drawable/ic_menu_compass" /> 
+	    android:icon="@android:drawable/ic_menu_compass" />
+	<item android:id="@+id/map"
+	    android:title="View Map"
+	    android:icon="@android:drawable/ic_menu_mapmode" /> 
 </menu>
