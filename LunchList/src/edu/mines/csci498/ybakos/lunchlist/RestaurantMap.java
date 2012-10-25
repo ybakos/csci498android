@@ -1,6 +1,7 @@
 package edu.mines.csci498.ybakos.lunchlist;
 
 import android.os.Bundle;
+import android.widget.Toast;
 import android.graphics.drawable.Drawable;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
@@ -28,7 +29,7 @@ public class RestaurantMap extends MapActivity {
 		}
 		
 		@Override
-		protected OverlayItem createItem(int id) {
+		protected OverlayItem createItem(int index) {
 			return item;
 		}
 		
@@ -37,11 +38,18 @@ public class RestaurantMap extends MapActivity {
 			return 1;
 		}
 		
+		@Override
+		protected boolean onTap(int index) {
+			Toast.makeText(RestaurantMap.this, item.getSnippet(), Toast.LENGTH_SHORT).show();
+			return true;
+		}
+		
 	}
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.map);
 		
 		double latitude = getIntent().getDoubleExtra(EXTRA_LATITUDE, 0);
 		double longitude = getIntent().getDoubleExtra(EXTRA_LONGITUDE, 0);
@@ -55,7 +63,6 @@ public class RestaurantMap extends MapActivity {
 		marker.setBounds(0, 0, marker.getIntrinsicWidth(), marker.getIntrinsicHeight());
 		map.getOverlays().add(new RestaurantOverlay(marker, status, getIntent().getStringExtra(EXTRA_NAME)));
 		
-		setContentView(R.layout.map);
 	}
 	
 	@Override
