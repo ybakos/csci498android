@@ -22,6 +22,8 @@
     <string name="sortPreferenceSummary">Choose the order the list uses</string>
     <string name="sortPreferenceTitle">Sort Order</string>
     <string name="sortPreferenceDialogTitle">Choose a sort order</string>
+    <string name="alarmPreferenceTitle">Sound a Lunch Alarm</string>
+    <string name="alarmPreferenceSummary">Check if you want to know when it is time to drink</string>
     <string name="timePreferenceSummary">Choose your lunch time!</string>
     <string name="timePreferenceTitle">Lunch Alarm Time</string>
     

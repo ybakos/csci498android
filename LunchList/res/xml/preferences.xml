@@ -6,7 +6,11 @@
         android:entries="@array/sort_names"
         android:entryValues="@array/sort_clauses"
         android:dialogTitle="@string/sortPreferenceDialogTitle" />
-    <apt.tutorial.TimePreference
+    <CheckBoxPreference
+        android:key="alarm"
+        android:title="@string/alarmPreferenceTitle"
+        android:summary="@string/alarmPreferenceSummary" />
+    <edu.mines.csci498.ybakos.lunchlist.TimePreference
         android:key="alarm_time"
         android:title="@string/timePreferenceTitle"
         android:defaultValue="12:00"
