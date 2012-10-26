@@ -29,12 +29,14 @@
         <activity android:name=".EditPreferences"></activity>
         <activity android:name=".FeedActivity"></activity>
         <activity android:name=".RestaurantMap"></activity>
+        <activity android:name=".AlarmActivity"></activity>
         <service android:name=".FeedService"></service>
         <receiver android:name=".OnBootReceiver" android:enabled="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+        <receiver android:name=".OnAlarmReceiver"></receiver>
     </application>
 
 </manifest>
