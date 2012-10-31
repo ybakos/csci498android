@@ -16,4 +16,10 @@
         android:defaultValue="12:00"
         android:summary="@string/timePreferenceSummary"
         android:dependency="alarm" />
+    <CheckBoxPreference
+        android:key="use_notification"
+        android:title="@string/notificationStyleTitle"
+        android:defaultValue="true"
+        android:summary="@string/notificationStyleSummary"
+        android:dependency="alarm" />
 </PreferenceScreen>
