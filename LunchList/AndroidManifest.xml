@@ -32,6 +32,7 @@
         <activity android:name=".RestaurantMap"></activity>
         <activity android:name=".AlarmActivity"></activity>
         <service android:name=".FeedService"></service>
+        <service android:name=".WidgetService"></service>
         <receiver android:name=".OnBootReceiver" android:enabled="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />

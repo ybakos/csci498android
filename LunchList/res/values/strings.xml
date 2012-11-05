@@ -18,7 +18,7 @@
     <string name="restaurantTypeIconDescription">Restaurant Type</string>
     <string name="option_unselected_message">No restaurant selected</string>
     <string name="empty_list_message">Use the menu to add a restaurant, yo!</string>
-    
+    <string name="widget_empty">No Restaurants. Bwah!</string>
     <string name="alarmMessage">It\'s time for a drink!</string>
     
     <string name="sortPreferenceSummary">Choose the order the list uses</string>
