@@ -48,7 +48,6 @@ public class WidgetService extends IntentService {
 		PendingIntent pendingIntent = PendingIntent.getService(this, 0, widgetIntent, 0);
 		updateViews.setOnClickPendingIntent(R.id.next, pendingIntent);
 		manager.updateAppWidget(me, updateViews);
-		
 	}
 	
 }
