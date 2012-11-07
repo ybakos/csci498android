@@ -4,4 +4,5 @@
     android:minWidth="220dip"
     android:minHeight="220dip"
     android:updatePeriodMillis="180000"
-    android:initialLayout="@layout/widget" />
+    android:initialLayout="@layout/widget"
+    android:previewImage="@drawable/hc_widget_preview" />
