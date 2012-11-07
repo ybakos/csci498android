@@ -33,6 +33,7 @@
         <activity android:name=".AlarmActivity"></activity>
         <service android:name=".FeedService"></service>
         <service android:name=".WidgetService"></service>
+        <service android:name=".ListWidgetService" android:permission="android.permissions.BIND_REMOTEVIEWS"></service>
         <receiver android:name=".OnBootReceiver" android:enabled="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -43,8 +44,7 @@
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
-            <meta-data android:name="android.appwidget.provider"
-                android:resource="@xml/widget_provider" />
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_provider" />
         </receiver>
     </application>
 
