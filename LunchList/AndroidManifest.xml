@@ -33,7 +33,7 @@
         <activity android:name=".AlarmActivity"></activity>
         <service android:name=".FeedService"></service>
         <service android:name=".WidgetService"></service>
-        <service android:name=".ListWidgetService" android:permission="android.permissions.BIND_REMOTEVIEWS"></service>
+        <service android:name=".ListWidgetService" android:permission="android.permission.BIND_REMOTEVIEWS"></service>
         <receiver android:name=".OnBootReceiver" android:enabled="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
