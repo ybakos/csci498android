@@ -26,29 +26,31 @@ public class LunchListFragment extends ListFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
-		
+		setHasOptionsMenu(true);
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
 		helper = new RestaurantHelper(getActivity());
 		preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 		initList();
 		preferences.registerOnSharedPreferenceChangeListener(prefListener);
 	}
-
+	
 	private void initList() {
 		if (model != null) {
-			stopManagingCursor(model);
 			model.close();
 		}
 		model = helper.getAll(preferences.getString("sort_order", "name"));
-		startManagingCursor(model);
 		adapter = new RestaurantAdapter(model);
 		setListAdapter(adapter);
 	}
 	
 	@Override
-	public void onDestroy() {
-		super.onDestroy();
+	public void onPause() {
 		helper.close();
+		super.onPause();
 	}
 
 	@Override
@@ -59,9 +61,8 @@ public class LunchListFragment extends ListFragment {
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		new MenuInflater(getActivity()).inflate(R.menu.option, menu);
-		return super.onCreateOptionsMenu(menu);
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		inflater.inflate(R.menu.option, menu);
 	}
 
 	@Override
@@ -86,13 +87,12 @@ public class LunchListFragment extends ListFragment {
 		@Override
 		public void bindView(View row, Context ctxt, Cursor c) {
 			RestaurantHolder holder = (RestaurantHolder) row.getTag();
-
 			holder.populateFrom(c, helper);
 		}
 
 		@Override
 		public View newView(Context ctxt, Cursor c, ViewGroup parent) {
-			LayoutInflater inflater = getLayoutInflater();
+			LayoutInflater inflater = getActivity().getLayoutInflater();
 			View row = inflater.inflate(R.layout.row, parent, false);
 			RestaurantHolder holder = new RestaurantHolder(row);
 			row.setTag(holder);
