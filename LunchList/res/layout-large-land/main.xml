@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://scnemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+	<fragment class="edu.mines.csci498.ybakos.lunchlist.LunchListFragment"
+	    android:id="@+id/lunch"
+	    android:layout_width="0dip"
+	    android:layout_height="match_parent"
+	    android:layout_weight="40" />
+	<FrameLayout android:id="@+id/details"
+	    android:layout_width="0dip"
+	    android:layout_height="match_parent"
+	    android:layout_weight="60" />
+</LinearLayout>
