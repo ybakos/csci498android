@@ -12,4 +12,14 @@ public class DetailForm extends FragmentActivity {
 		setContentView(R.layout.detail_activity);
 	}
 
+	@Override
+	public void onResume() {
+		super.onResume();
+		String restaurantId = getIntent().getStringExtra(LunchListActivity.ID_EXTRA);
+		if (restaurantId != null) {
+			DetailFragment details = (DetailFragment) getSupportFragmentManager().findFragmentById(R.id.details);
+			if (details != null) details.loadRestaurant(restaurantId);
+		}
+	}
+	
 }

@@ -16,6 +16,8 @@ import android.widget.*;
 
 public class DetailFragment extends Fragment {
 
+	private static final String ARG_RESTAURANT_ID = "edu.mines.csci498.ybakos.lunchlist.ARG_RESTAURANT_ID";
+	
 	EditText name;
 	EditText address;
 	EditText notes;
@@ -30,7 +32,7 @@ public class DetailFragment extends Fragment {
 	
 	LocationListener onLocationChange = new LocationListener() {
 		public void onLocationChanged(Location fix) {
-			helper.updateLocation(restaurantId, fix.getLatitude(), fix.getLongitude());
+			getHelper().updateLocation(restaurantId, fix.getLatitude(), fix.getLongitude());
 			location.setText(String.valueOf(fix.getLatitude()) + ", " + String.valueOf(fix.getLongitude()));
 			locationManager.removeUpdates(onLocationChange);
 			Toast.makeText(getActivity(), "Location saved bwhah!", Toast.LENGTH_LONG).show();
@@ -40,6 +42,14 @@ public class DetailFragment extends Fragment {
 		public void onProviderEnabled(String provider) { /* not using */ }
 		public void onStatusChanged(String provider, int status, Bundle extras) { /* not using */ }
 	};
+
+	public static DetailFragment newInstance(long id) {
+		DetailFragment result = new DetailFragment();
+		Bundle args = new Bundle();
+		args.putString(ARG_RESTAURANT_ID, String.valueOf(id));
+		result.setArguments(args);
+		return result;
+	}
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -66,30 +76,20 @@ public class DetailFragment extends Fragment {
 		feed = (EditText) getView().findViewById(R.id.feed);
 		types = (RadioGroup) getView().findViewById(R.id.restaurantTypes);
 		location = (TextView) getView().findViewById(R.id.location);
+		
+		Bundle arguments = getArguments();
+		if (arguments != null) loadRestaurant(arguments.getString(ARG_RESTAURANT_ID));
 	}
 	
-	@Override
-	public void onResume() {
-		super.onResume();
-		helper = new RestaurantHelper(getActivity());
-		restaurantId = getActivity().getIntent().getStringExtra(LunchListActivity.ID_EXTRA);
-		if (restaurantId != null) load();
+	private RestaurantHelper getHelper() {
+		if (helper == null) helper = new RestaurantHelper(getActivity());
+		return helper;
 	}
-	
-//	@Override
-//	public void onSaveInstanceState(Bundle state) {
-//		super.onSaveInstanceState(state);
-//		state.putString("name", name.getText().toString());
-//		state.putString("address", address.getText().toString());
-//		state.putString("notes", notes.getText().toString());
-//		state.putString("feed", feed.getText().toString());
-//		state.putInt("type", types.getCheckedRadioButtonId());
-//	}
 	
 	@Override
 	public void onPause() {
 		save();
-		helper.close();
+		getHelper().close();
 		locationManager.removeUpdates(onLocationChange);
 		super.onPause();
 	}
@@ -147,13 +147,13 @@ public class DetailFragment extends Fragment {
 					break;
 			}
 			if (restaurantId == null) {
-				helper.insert(name.getText().toString(),
+				getHelper().insert(name.getText().toString(),
 							  address.getText().toString(),
 							  type,
 							  notes.getText().toString(),
 							  feed.getText().toString());
 			} else {
-				helper.update(restaurantId,
+				getHelper().update(restaurantId,
 							  name.getText().toString(),
 							  address.getText().toString(),
 							  type,
@@ -164,26 +164,31 @@ public class DetailFragment extends Fragment {
 	}
 	
  	private void load() {
-		Cursor c = helper.getById(restaurantId);
+		Cursor c = getHelper().getById(restaurantId);
 		c.moveToFirst();
 
-		name.setText(helper.getName(c));
-		address.setText(helper.getAddress(c));
-		notes.setText(helper.getNotes(c));
-		feed.setText(helper.getFeed(c));
-		if (helper.getType(c).equals("sit_down")) {
+		name.setText(getHelper().getName(c));
+		address.setText(getHelper().getAddress(c));
+		notes.setText(getHelper().getNotes(c));
+		feed.setText(getHelper().getFeed(c));
+		if (getHelper().getType(c).equals("sit_down")) {
 			types.check(R.id.sit_down);
-		} else if (helper.getType(c).equals("take_out")) {
+		} else if (getHelper().getType(c).equals("take_out")) {
 			types.check(R.id.take_out);
 		} else {
 			types.check(R.id.delivery);
 		}
-		latitude = helper.getLatitude(c);
-		longitude = helper.getLongitude(c);
+		latitude = getHelper().getLatitude(c);
+		longitude = getHelper().getLongitude(c);
 		location.setText(String.valueOf(latitude) + ", " + String.valueOf(longitude));
 		c.close();
 	}
 
+ 	public void loadRestaurant(String restaurantId) {
+ 		this.restaurantId = restaurantId;
+ 		if (restaurantId != null) load();
+ 	}
+ 	
 	private boolean isNetworkAvailable() {
 		ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo info = cm.getActiveNetworkInfo();
