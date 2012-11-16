@@ -128,6 +128,8 @@ public class DetailFragment extends Fragment {
 			intent.putExtra(RestaurantMap.EXTRA_NAME, name.getText().toString());
 			startActivity(intent);
 			return true;
+		} else if (item.getItemId() == R.id.help) {
+			startActivity(new Intent(getActivity(), HelpActivity.class));
 		}
 		return super.onOptionsItemSelected(item);
 	}

@@ -73,6 +73,8 @@ public class LunchListFragment extends ListFragment {
 			startActivity(new Intent("android.intent.ACTION_VIEW", Uri.parse(helper.getUrl(model))));
 		} else if (item.getItemId() == R.id.prefs) {
 			startActivity(new Intent(getActivity(), EditPreferences.class));
+		} else if (item.getItemId() == R.id.help) {
+			startActivity(new Intent(getActivity(), HelpActivity.class));
 		}
 		return super.onOptionsItemSelected(item);
 	}
