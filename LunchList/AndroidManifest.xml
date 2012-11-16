@@ -26,6 +26,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".HelpActivity"></activity>
         <activity android:name=".DetailForm"></activity>
         <activity android:name=".EditPreferences"></activity>
         <activity android:name=".FeedActivity"></activity>
