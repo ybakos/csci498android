@@ -22,4 +22,10 @@
         android:defaultValue="true"
         android:summary="@string/notificationStyleSummary"
         android:dependency="alarm" />
+    <RingtonePreference
+        android:key="alarm_ringtone"
+        android:title="@string/alarmRingtonePreferenceTitle"
+        android:summary="@string/alarmRingtoneSummary"
+        android:showSilent="true"
+        android:dependency="alarm" />
 </PreferenceScreen>

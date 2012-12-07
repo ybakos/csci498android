@@ -29,7 +29,9 @@
     <string name="timePreferenceSummary">Choose your lunch time!</string>
     <string name="timePreferenceTitle">Lunch Alarm Time</string>
     <string name="notificationStyleTitle">Use a Notification</string>
-    <string name="notificationStyleSummary">Check if you want a status bar icon at lunchtime or uncheck for a full-screen notice</string>
+    <string name="notificationStyleSummary">Check if you want a status bar icon at lunch time or uncheck for a full-screen notice</string>
+    <string name="alarmRingtonePreferenceTitle">Alarm Ringtone</string>
+    <string name="alarmRingtoneSummary">Indicate the ringtone to play when it is lunch time.</string>
     
     <string name="network_unavailable_message">You must be online in order to do that.</string>
     
