@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 class RestaurantHelper extends SQLiteOpenHelper {
 
-	private static final int SCHEMA_VERSION = 6;
+	private static final int SCHEMA_VERSION = 7;
 	private Context context;
 	
 	public RestaurantHelper(Context context) {
@@ -33,6 +33,9 @@ class RestaurantHelper extends SQLiteOpenHelper {
 			db.execSQL(context.getString(R.string.migration03_add_lat_to_restaurants));
 			db.execSQL(context.getString(R.string.migration04_add_lon_to_restaurants));
 		}
+		if (oldVersion < 7) {
+			db.execSQL(context.getString(R.string.migration05_add_phone_to_restaurants));
+		}
 	}
 
 	public Cursor getAll(String orderBy) {
@@ -44,17 +47,18 @@ class RestaurantHelper extends SQLiteOpenHelper {
 		return getReadableDatabase().rawQuery(context.getString(R.string.db_select_restaurant), args);
 	}
 	
-	public void insert(String name, String address, String type, String notes, String feed) {
+	public void insert(String name, String address, String type, String notes, String feed, String phone) {
 		ContentValues cv = new ContentValues();
 		cv.put("name", name);
 		cv.put("address", address);
 		cv.put("type", type);
 		cv.put("notes", notes);
 		cv.put("feed", feed);
+		cv.put("phone", phone);
 		getWritableDatabase().insert("restaurants", "name", cv);
 	}
 	
-	public void update(String id, String name, String address, String type, String notes, String feed) {
+	public void update(String id, String name, String address, String type, String notes, String feed, String phone) {
 		ContentValues cv = new ContentValues();
 		String[] args = {id};
 		cv.put("name", name);
@@ -62,6 +66,7 @@ class RestaurantHelper extends SQLiteOpenHelper {
 		cv.put("type", type);
 		cv.put("notes", notes);
 		cv.put("feed", feed);
+		cv.put("phone", phone);
 		getWritableDatabase().update("restaurants", cv, "_id=?", args);
 	}
 
@@ -89,6 +94,11 @@ class RestaurantHelper extends SQLiteOpenHelper {
 		return c.getString(4);
 	}
 	
+	// Just a stub, to illustrate launching a browser activity via uri.
+	public String getUrl(Cursor c) {
+		return "http://developer.android.com";
+	}
+
 	public String getFeed(Cursor c) {
 		return c.getString(6);
 	}
@@ -100,10 +110,9 @@ class RestaurantHelper extends SQLiteOpenHelper {
 	public double getLongitude(Cursor c) {
 		return c.getDouble(8);
 	}
-	
-	// Just a stub, to illustrate launching a browser activity via uri.
-	public String getUrl(Cursor c) {
-		return "http://developer.android.com";
+
+	public String getPhone(Cursor c) {
+		return c.getString(9);
 	}
 	
 }

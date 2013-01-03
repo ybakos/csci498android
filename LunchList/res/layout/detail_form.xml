@@ -21,6 +21,10 @@
 	        <AutoCompleteTextView android:id="@+id/address"
 		        android:singleLine="true" />
 	    </TableRow>
+		<TableRow>
+		    <TextView android:text="@string/phoneFieldLabel" />
+		    <EditText android:id="@+id/phone" android:inputType="phone" />
+		</TableRow>
 	    <TableRow>
 	        <TextView
 	            android:id="@+id/textView3"

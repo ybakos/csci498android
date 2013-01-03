@@ -6,6 +6,7 @@ public class Restaurant {
 	private String address = "";
 	private String type = "";
 	private String notes = "";
+	private String phone = "";
 	
 	public String getType() {
 		return type;
@@ -37,6 +38,14 @@ public class Restaurant {
 	
 	public String getNotes() {
 		return notes;
+	}
+	
+	public String getPhone() {
+		return phone;
+	}
+	
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 	
 	public String toString() {
