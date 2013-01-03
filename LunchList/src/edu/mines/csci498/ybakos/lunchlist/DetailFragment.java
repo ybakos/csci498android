@@ -201,5 +201,9 @@ public class DetailFragment extends Fragment {
 		NetworkInfo info = cm.getActiveNetworkInfo();
 		return (info != null);
 	}
+	
+	private boolean isTelephonyAvailable() {
+		return getActivity().getPackageManager().hasSystemFeature("android.hardware.telephony");
+	}
 
 }
