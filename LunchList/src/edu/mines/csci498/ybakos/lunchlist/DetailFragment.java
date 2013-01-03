@@ -6,6 +6,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.content.Context;
 import android.content.Intent;
@@ -107,6 +108,9 @@ public class DetailFragment extends Fragment {
 			menu.findItem(R.id.location).setEnabled(false);
 			menu.findItem(R.id.map).setEnabled(false);
 		}
+		if (isTelephonyAvailable()) {
+			menu.findItem(R.id.call).setEnabled(true);
+		}
 	}
 	
 	@Override
@@ -132,6 +136,11 @@ public class DetailFragment extends Fragment {
 			return true;
 		} else if (item.getItemId() == R.id.help) {
 			startActivity(new Intent(getActivity(), HelpActivity.class));
+		} else if (item.getItemId() == R.id.call) {
+			String phoneUrl = "tel:" + phone.getText().toString();
+			if (phoneUrl.length() > 4) {
+				startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(phoneUrl)));
+			}
 		}
 		return super.onOptionsItemSelected(item);
 	}
